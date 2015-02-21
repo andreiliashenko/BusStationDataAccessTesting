@@ -1,0 +1,22 @@
+/* staff */
+Driver Skill
+Mechanic Skill
+Driver
+Mechanic
+Salesman
+Employee
+/* vehicles */
+Gas Label
+Technical State
+Model
+Bus
+/* geography */
+Station
+Region
+...
+/* maintenance */
+Station Service
+Bus Repairment
+Bus Refuelling
+...
+/* traffic */
