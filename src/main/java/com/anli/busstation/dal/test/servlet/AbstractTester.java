@@ -28,7 +28,7 @@ public abstract class AbstractTester extends HttpServlet {
             "SalesmanTest", "DriverTest", "MechanicTest", "EmployeeTest");
     protected static final List<String> geographyTests = Arrays.asList("StationTest", "RegionTest", "RoadTest");
     protected static final List<String> maintenanceTests = Arrays.asList("BusRepairmentTest",
-            "BusRefuellingTest", "BusServiceTest", "StationServiceTest");
+            "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
     protected static final List<String> trafficTests = Arrays.asList();
 
     @Override

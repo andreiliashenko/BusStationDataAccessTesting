@@ -104,8 +104,8 @@ public abstract class BusServiceTest extends BasicDataAccessTestSceleton<BusServ
     @Override
     protected void deleteEntityByProvider(BigInteger id) throws Exception {
         BusServiceProvider provider = getFactory().getProvider(BusServiceProvider.class);
-        BusService employee = provider.findById(id);
-        provider.remove(employee);
+        BusService service = provider.findById(id);
+        provider.remove(service);
     }
     
     @Override
