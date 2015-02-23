@@ -11,6 +11,7 @@ import com.anli.busstation.dal.interfaces.entities.staff.MechanicSkill;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.staff.Salesman;
 import com.anli.busstation.dal.interfaces.entities.geography.Station;
+import com.anli.busstation.dal.interfaces.entities.traffic.RoutePoint;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
 import com.anli.busstation.dal.interfaces.factories.ProviderFactory;
 import com.anli.busstation.dal.interfaces.providers.vehicles.BusProvider;
@@ -22,6 +23,7 @@ import com.anli.busstation.dal.interfaces.providers.staff.MechanicSkillProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.ModelProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.SalesmanProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.StationProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RoutePointProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.TechnicalStateProvider;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -229,5 +231,21 @@ public abstract class FixtureCreator {
             stations.put(station.getId(), station);
         }
         return stations;
+    }
+
+    public Map<BigInteger, RoutePoint> createRoutePointFixture(int minId, int count, List<Station> stations) {
+        RoutePointProvider routePointProvider = getFactory().getProvider(RoutePointProvider.class);
+        Map<BigInteger, RoutePoint> routePoints = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            RoutePoint routePoint = routePointProvider.findById(BigInteger.valueOf(minId + i));
+            if (routePoint == null) {
+                routePoint = routePointProvider.create();
+            }
+            routePoint.setStation(stations.isEmpty() ? null : stations.get(i % stations.size()));
+            routePoint = routePointProvider.save(routePoint);
+            setIdManually(routePoint, BigInteger.valueOf(minId + i));
+            routePoints.put(routePoint.getId(), routePoint);
+        }
+        return routePoints;
     }
 }

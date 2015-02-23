@@ -29,7 +29,7 @@ public abstract class AbstractTester extends HttpServlet {
     protected static final List<String> geographyTests = Arrays.asList("StationTest", "RegionTest", "RoadTest");
     protected static final List<String> maintenanceTests = Arrays.asList("BusRepairmentTest",
             "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
-    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest");
+    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
