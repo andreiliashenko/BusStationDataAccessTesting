@@ -1,6 +1,7 @@
 package com.anli.busstation.dal.test;
 
 import com.anli.busstation.dal.interfaces.entities.BSEntity;
+import com.anli.busstation.dal.interfaces.entities.geography.Road;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Bus;
 import com.anli.busstation.dal.interfaces.entities.staff.Driver;
 import com.anli.busstation.dal.interfaces.entities.staff.DriverSkill;
@@ -14,6 +15,7 @@ import com.anli.busstation.dal.interfaces.entities.geography.Station;
 import com.anli.busstation.dal.interfaces.entities.traffic.RoutePoint;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
 import com.anli.busstation.dal.interfaces.factories.ProviderFactory;
+import com.anli.busstation.dal.interfaces.providers.geography.RoadProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.BusProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.DriverProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.DriverSkillProvider;
@@ -247,5 +249,24 @@ public abstract class FixtureCreator {
             routePoints.put(routePoint.getId(), routePoint);
         }
         return routePoints;
+    }
+
+    public Map<BigInteger, Road> createRoadFixture(int minId, int count, List<Station> stations) {
+        RoadProvider roadProvider = getFactory().getProvider(RoadProvider.class);
+        Map<BigInteger, Road> roads = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            Road road = roadProvider.findById(BigInteger.valueOf(minId + i));
+            if (road == null) {
+                road = roadProvider.create();
+            }
+            road.setAStation(stations.isEmpty() ? null : stations.get(i % stations.size()));
+            road.setLength(i * 1000);
+            road.setRidePrice(BigDecimal.valueOf(1000 / (i + 1)));
+            road.setZStation(stations.isEmpty() ? null : stations.get((i + 1) % stations.size()));
+            road = roadProvider.save(road);
+            setIdManually(road, BigInteger.valueOf(minId + i));
+            roads.put(road.getId(), road);
+        }
+        return roads;
     }
 }
