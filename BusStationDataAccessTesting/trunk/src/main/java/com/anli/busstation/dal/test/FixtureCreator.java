@@ -12,6 +12,7 @@ import com.anli.busstation.dal.interfaces.entities.staff.MechanicSkill;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.staff.Salesman;
 import com.anli.busstation.dal.interfaces.entities.geography.Station;
+import com.anli.busstation.dal.interfaces.entities.traffic.RidePoint;
 import com.anli.busstation.dal.interfaces.entities.traffic.RoutePoint;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
 import com.anli.busstation.dal.interfaces.factories.ProviderFactory;
@@ -25,6 +26,7 @@ import com.anli.busstation.dal.interfaces.providers.staff.MechanicSkillProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.ModelProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.SalesmanProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.StationProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RidePointProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RoutePointProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.TechnicalStateProvider;
 import java.math.BigDecimal;
@@ -268,5 +270,23 @@ public abstract class FixtureCreator {
             roads.put(road.getId(), road);
         }
         return roads;
+    }
+
+    public Map<BigInteger, RidePoint> createRidePointFixture(int minId, int count, List<RoutePoint> routePoints) {
+        RidePointProvider ridePointProvider = getFactory().getProvider(RidePointProvider.class);
+        Map<BigInteger, RidePoint> ridePoints = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            RidePoint ridePoint = ridePointProvider.findById(BigInteger.valueOf(minId + i));
+            if (ridePoint == null) {
+                ridePoint = ridePointProvider.create();
+            }
+            ridePoint.setArrivalTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, i % 24, i % 60, 0, 0));
+            ridePoint.setDepartureTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24, (i + 20) % 60, 0, 0));
+            ridePoint.setRoutePoint(routePoints.isEmpty() ? null : routePoints.get(i % routePoints.size()));
+            ridePoint = ridePointProvider.save(ridePoint);
+            setIdManually(ridePoint, BigInteger.valueOf(minId + i));
+            ridePoints.put(ridePoint.getId(), ridePoint);
+        }
+        return ridePoints;
     }
 }
