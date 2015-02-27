@@ -238,7 +238,7 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> implements
             Collections.sort(expectedList);
             Collections.sort(actualList);
             if (!expectedList.equals(actualList)) {
-                throw new AssertionError("Set number " + setNumber + "Expected " + expected + " Actual "
+                throw new AssertionError("Set number " + setNumber + " Expected " + expected + " Actual "
                         + actual);
             }
             setNumber++;
@@ -259,13 +259,13 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> implements
             I expectedEntity = expectedIter.next();
             I acutalEntity = actualIter.next();
             if (!expectedEntity.deepEquals(acutalEntity)) {
-                throw new AssertionError("Set number " + setNumber + "Expected " + expected + " Actual "
+                throw new AssertionError("Set number " + setNumber + " Expected " + expected + " Actual "
                         + actual + " on " + count + " item");
             }
             count++;
         }
         if (expectedIter.hasNext() || actualIter.hasNext()) {
-            throw new AssertionError("Set number " + setNumber + "Expected " + expected + " Actual " + actual
+            throw new AssertionError("Set number " + setNumber + " Expected " + expected + " Actual " + actual
                     + " Expected length " + expected.size() + " Actual length " + actual.size());
         }
     }

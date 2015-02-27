@@ -29,7 +29,8 @@ public abstract class AbstractTester extends HttpServlet {
     protected static final List<String> geographyTests = Arrays.asList("StationTest", "RegionTest", "RoadTest");
     protected static final List<String> maintenanceTests = Arrays.asList("BusRepairmentTest",
             "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
-    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest", "RideRoadTest");
+    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest", "RideRoadTest",
+            "TicketTest");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,21 +47,6 @@ public abstract class AbstractTester extends HttpServlet {
         PrintWriter out = response.getWriter();
         String resultHtml = getHtml(request.getServletContext());
         out.print(resultHtml);
-        /*
-         out.println("<a href='" + request.getContextPath() + "/DriverSkillTest'>Driver Skill Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/GasLabelTest'>Gas Label Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/MechanicSkillTest'>Mechanic Skill Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/TechnicalStateTest'>Technical State Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/ModelTest'>Model Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/BusTest'>Bus Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/DriverTest'>Driver Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/MechanicTest'>Mechanic Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/SalesmanTest'>Salesman Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/EmployeeTest'>Employee Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/StationTest'>Station Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/RegionTest'>Region Test</a><br />");
-         out.println("<a href='" + request.getContextPath() + "/StationServiceTest'>Station Service Test</a><br />");
-         */
     }
 
     protected String getHtml(ServletContext context) throws IOException {
