@@ -13,7 +13,9 @@ import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.staff.Salesman;
 import com.anli.busstation.dal.interfaces.entities.geography.Station;
 import com.anli.busstation.dal.interfaces.entities.traffic.RidePoint;
+import com.anli.busstation.dal.interfaces.entities.traffic.RideRoad;
 import com.anli.busstation.dal.interfaces.entities.traffic.RoutePoint;
+import com.anli.busstation.dal.interfaces.entities.traffic.Ticket;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
 import com.anli.busstation.dal.interfaces.factories.ProviderFactory;
 import com.anli.busstation.dal.interfaces.providers.geography.RoadProvider;
@@ -27,7 +29,9 @@ import com.anli.busstation.dal.interfaces.providers.vehicles.ModelProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.SalesmanProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.StationProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RidePointProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RideRoadProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RoutePointProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.TicketProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.TechnicalStateProvider;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -288,5 +292,46 @@ public abstract class FixtureCreator {
             ridePoints.put(ridePoint.getId(), ridePoint);
         }
         return ridePoints;
+    }
+
+    public Map<BigInteger, RideRoad> createRideRoadFixture(int minId, int count, List<Driver> drivers, List<Road> roads) {
+        RideRoadProvider rideRoadProvider = getFactory().getProvider(RideRoadProvider.class);
+        Map<BigInteger, RideRoad> rideRoads = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            RideRoad rideRoad = rideRoadProvider.findById(BigInteger.valueOf(minId + i));
+            if (rideRoad == null) {
+                rideRoad = rideRoadProvider.create();
+            }
+            rideRoad.setDriver(drivers.isEmpty() ? null : drivers.get(i % drivers.size()));
+            rideRoad.setRoad(roads.isEmpty() ? null : roads.get(i % roads.size()));
+            rideRoad = rideRoadProvider.save(rideRoad);
+            setIdManually(rideRoad, BigInteger.valueOf(minId + i));
+            rideRoads.put(rideRoad.getId(), rideRoad);
+        }
+        return rideRoads;
+    }
+
+    public Map<BigInteger, Ticket> createTicketFixture(int minId, int count, List<RidePoint> ridePoints,
+            List<Salesman> salesmen) {
+        TicketProvider ticketProvider = getFactory().getProvider(TicketProvider.class);
+        Map<BigInteger, Ticket> tickets = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            Ticket ticket = ticketProvider.findById(BigInteger.valueOf(minId + i));
+            if (ticket == null) {
+                ticket = ticketProvider.create();
+            }
+            ticket.setArrivalPoint(ridePoints.isEmpty() ? null : ridePoints.get(i % ridePoints.size()));
+            ticket.setCustomerName("Customer " + i);
+            ticket.setDeparturePoint(ridePoints.isEmpty() ? null : ridePoints.get(i % ridePoints.size()));
+            ticket.setPrice(BigDecimal.valueOf(i * 100));
+            ticket.setSaleDate(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24, (i + 20) % 60, 0, 0));
+            ticket.setSalesman(salesmen.isEmpty() ? null : salesmen.get(i % salesmen.size()));
+            ticket.setSeat(i + 5);
+            ticket.setSold(i % 2 == 0);
+            ticket = ticketProvider.save(ticket);
+            setIdManually(ticket, BigInteger.valueOf(minId + i));
+            tickets.put(ticket.getId(), ticket);
+        }
+        return tickets;
     }
 }
