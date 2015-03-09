@@ -45,6 +45,9 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
 
         stations = getFixtureCreator().createStationFixture(100, 10,
                 new ArrayList(buses.values()), new ArrayList(employees.values()));
+        for (Station station : stations.values()) {
+            nullifyStationCollections(station);
+        }
     }
 
     @Override
@@ -96,13 +99,7 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
 
     @Override
     protected List<Region> getPullEtalons() throws Exception {
-        List<Region> creationSets = getCreationTestSets();
-        for (Region region : creationSets) {
-            for (Station station : region.getStations()) {
-                nullifyStationCollections(station);
-            }
-        }
-        return creationSets;
+        return getCreationTestSets();
     }
 
     protected abstract void nullifyStationCollections(Station station);
@@ -261,14 +258,7 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
     }
 
     protected Station getStationById(BigInteger id, boolean load) {
-        if (load) {
-            StationProvider provider = getFactory().getProvider(StationProvider.class);
-            Station station = provider.findById(id);
-            station = provider.pullBuses(station);
-            station = provider.pullEmployees(station);
-            return station;
-        } else {
-            return stations.get(id);
-        }
+        return load ? getFactory().getProvider(StationProvider.class).findById(id)
+                : stations.get(id);
     }
 }
