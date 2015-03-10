@@ -12,6 +12,7 @@ import com.anli.busstation.dal.interfaces.entities.staff.MechanicSkill;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.staff.Salesman;
 import com.anli.busstation.dal.interfaces.entities.geography.Station;
+import com.anli.busstation.dal.interfaces.entities.traffic.Ride;
 import com.anli.busstation.dal.interfaces.entities.traffic.RidePoint;
 import com.anli.busstation.dal.interfaces.entities.traffic.RideRoad;
 import com.anli.busstation.dal.interfaces.entities.traffic.RoutePoint;
@@ -29,6 +30,7 @@ import com.anli.busstation.dal.interfaces.providers.vehicles.ModelProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.SalesmanProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.StationProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RidePointProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RideProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RideRoadProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.RoutePointProvider;
 import com.anli.busstation.dal.interfaces.providers.traffic.TicketProvider;
@@ -333,5 +335,38 @@ public abstract class FixtureCreator {
             tickets.put(ticket.getId(), ticket);
         }
         return tickets;
+    }
+
+    public Map<BigInteger, Ride> createRideFixture(int minId, int count,
+            List<Bus> buses, List<RidePoint> ridePoints,
+            List<RideRoad> rideRoads, List<Ticket> tickets) {
+        RideProvider rideProvider = getFactory().getProvider(RideProvider.class);
+        Map<BigInteger, Ride> rides = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            Ride ride = rideProvider.findById(BigInteger.valueOf(minId + i));
+            if (ride == null) {
+                ride = rideProvider.create();
+            }
+            ride = rideProvider.pullRidePoints(ride);
+            ride = rideProvider.pullRideRoads(ride);
+            ride = rideProvider.pullTickets(ride);
+            ride.setBus(buses.isEmpty() ? null : buses.get(i % buses.size()));
+            ride.getRidePoints().clear();
+            if (!ridePoints.isEmpty()) {
+                ride.getRidePoints().addAll(ridePoints.subList(i % ridePoints.size(), i + 1));
+            }
+            ride.getRideRoads().clear();
+            if (!rideRoads.isEmpty()) {
+                ride.getRideRoads().addAll(rideRoads.subList(i % rideRoads.size(), i + 1));
+            }
+            ride.getTickets().clear();
+            if (!tickets.isEmpty()) {
+                ride.getTickets().addAll(tickets.subList(i % tickets.size(), i + 1));
+            }
+            ride = rideProvider.save(ride);
+            setIdManually(ride, BigInteger.valueOf(minId + i));
+            rides.put(ride.getId(), ride);
+        }
+        return rides;
     }
 }
