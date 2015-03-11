@@ -31,7 +31,8 @@ public abstract class AbstractTester extends HttpServlet {
             "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
     protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest", "RideRoadTest",
             "TicketTest", "RideTest", "RouteTest");
-    protected static final List<String> additionalTests = Arrays.asList("ReferenceMutationTest");
+    protected static final List<String> additionalTests = Arrays.asList("ReferenceMutationTest",
+            "ConsistencyTest");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
