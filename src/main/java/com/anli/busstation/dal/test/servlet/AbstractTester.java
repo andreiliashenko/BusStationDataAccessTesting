@@ -31,6 +31,7 @@ public abstract class AbstractTester extends HttpServlet {
             "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
     protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest", "RideRoadTest",
             "TicketTest", "RideTest", "RouteTest");
+    protected static final List<String> additionalTests = Arrays.asList("ReferenceMutationTest");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,6 +71,9 @@ public abstract class AbstractTester extends HttpServlet {
         }
         for (String trafficTest : trafficTests) {
             testList.add(new Test(trafficTest, getBasePackage() + ".traffic." + trafficTest));
+        }
+        for (String additionalTest : additionalTests) {
+            testList.add(new Test(additionalTest, getBasePackage() + ".additional." + additionalTest));
         }
         StringBuilder builder = new StringBuilder();
         builder.append("[");
