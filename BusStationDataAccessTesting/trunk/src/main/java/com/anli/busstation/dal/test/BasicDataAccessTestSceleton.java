@@ -1,8 +1,6 @@
 package com.anli.busstation.dal.test;
 
 import com.anli.busstation.dal.interfaces.entities.BSEntity;
-import com.anli.busstation.dal.interfaces.factories.ProviderFactory;
-import com.anli.integrationtesting.execution.TestExecutor;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +8,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class BasicDataAccessTestSceleton<I extends BSEntity> implements TestExecutor {
+public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends AbstractDataAccessTest {
 
     protected static volatile long currentId = 1001L;
 
@@ -39,8 +37,6 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> implements
         testSearch();
     }
 
-    protected abstract ProviderFactory getFactory();
-
     protected abstract BigInteger createEntityByProvider(I entity) throws Exception;
 
     protected abstract I getEntityByProvider(BigInteger id) throws Exception;
@@ -68,8 +64,6 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> implements
     protected abstract List<int[]> getExpectedCollectingSets();
 
     protected abstract void setEntityId(I entity, BigInteger id);
-
-    protected abstract FixtureCreator getFixtureCreator();
 
     protected abstract void clearStorageSpace() throws Exception;
 
