@@ -13,7 +13,6 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
     protected BigInteger createEntityByProvider(TechnicalState sourceState) throws Exception {
         TechnicalStateProvider provider = getFactory().getProvider(TechnicalStateProvider.class);
         TechnicalState state = provider.create();
-
         state.setDescription(sourceState.getDescription());
         state.setDifficultyLevel(sourceState.getDifficultyLevel());
         provider.save(state);
@@ -45,7 +44,6 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
     @Override
     protected List<TechnicalState> getCreationTestSets() {
         List<TechnicalState> testSets = new ArrayList<>(4);
-
         testSets.add(getNewState(BigInteger.ZERO, null, null));
         testSets.add(getNewState(BigInteger.ZERO, "", 0));
         testSets.add(getNewState(BigInteger.ZERO, "Created Description 1", 5));
@@ -57,19 +55,16 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
     @Override
     protected List<TechnicalState> getUpdateTestSets() {
         List<TechnicalState> testSets = new ArrayList<>(4);
-
         testSets.add(getNewState(BigInteger.ZERO, "Updated Description 1", 4));
         testSets.add(getNewState(BigInteger.ZERO, "Updated Description 2", null));
         testSets.add(getNewState(BigInteger.ZERO, null, 11));
         testSets.add(getNewState(BigInteger.ZERO, "", 0));
-
         return testSets;
     }
 
     @Override
     protected List<TechnicalState> getSearchTestSets() {
         List<TechnicalState> testSets = new ArrayList<>(8);
-
         testSets.add(getNewState(BigInteger.ZERO, null, null));
         testSets.add(getNewState(BigInteger.ZERO, null, 3));
         testSets.add(getNewState(BigInteger.ZERO, "", 4));
@@ -78,7 +73,6 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
         testSets.add(getNewState(BigInteger.ZERO, "DES2", 7));
         testSets.add(getNewState(BigInteger.ZERO, "DES3", 8));
         testSets.add(getNewState(BigInteger.ZERO, "DES5", 9));
-
         return testSets;
     }
 
@@ -100,7 +94,6 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
         searchResult.add(new int[]{2, 3, 4});
         searchResult.add(new int[]{2, 3, 4, 5});
         searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7});
-
         return searchResult;
     }
 
@@ -112,18 +105,14 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
     @Override
     protected List<List<TechnicalState>> performSearches() throws Exception {
         List<List<TechnicalState>> searchResult = new ArrayList(15);
-
         TechnicalStateProvider provider = getFactory().getProvider(TechnicalStateProvider.class);
         List<TechnicalState> resultCollection;
-
         resultCollection = provider.findByDescriptionRegexp("^DE\\S[0-4]");
         searchResult.add(resultCollection);
-
         resultCollection = provider.findByDifficultyLevel(null);
         searchResult.add(resultCollection);
         resultCollection = provider.findByDifficultyLevel(5);
         searchResult.add(resultCollection);
-
         resultCollection = provider.findByDifficultyLevelRange(null, true, null, false);
         searchResult.add(resultCollection);
         resultCollection = provider.findByDifficultyLevelRange(5, false, 5, false);
@@ -146,28 +135,22 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
         searchResult.add(resultCollection);
         resultCollection = provider.findByDifficultyLevelRange(4, false, 7, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.findAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 
     @Override
     protected List<List<BigInteger>> performCollectings() throws Exception {
         List<List<BigInteger>> searchResult = new ArrayList<>(15);
-
         TechnicalStateProvider provider = getFactory().getProvider(TechnicalStateProvider.class);
         List<BigInteger> resultCollection;
-
         resultCollection = provider.collectIdsByDescriptionRegexp("^DE\\S[0-4]");
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsByDifficultyLevel(null);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDifficultyLevel(5);
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsByDifficultyLevelRange(null, true, null, false);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDifficultyLevelRange(5, false, 5, false);
@@ -190,10 +173,8 @@ public abstract class TechnicalStateTest extends BasicDataAccessTestSceleton<Tec
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDifficultyLevelRange(4, false, 7, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 

@@ -176,7 +176,8 @@ public abstract class FixtureCreator {
         return drivers;
     }
 
-    public Map<BigInteger, Mechanic> createMechanicFixture(int minId, int count, List<MechanicSkill> skills) {
+    public Map<BigInteger, Mechanic> createMechanicFixture(int minId, int count,
+            List<MechanicSkill> skills) {
         MechanicProvider mechanicProvider = getFactory().getProvider(MechanicProvider.class);
         Map<BigInteger, Mechanic> mechanics = new HashMap<>();
         for (int i = 0; i < count; i++) {
@@ -243,7 +244,8 @@ public abstract class FixtureCreator {
         return stations;
     }
 
-    public Map<BigInteger, RoutePoint> createRoutePointFixture(int minId, int count, List<Station> stations) {
+    public Map<BigInteger, RoutePoint> createRoutePointFixture(int minId, int count,
+            List<Station> stations) {
         RoutePointProvider routePointProvider = getFactory().getProvider(RoutePointProvider.class);
         Map<BigInteger, RoutePoint> routePoints = new HashMap<>();
         for (int i = 0; i < count; i++) {
@@ -278,7 +280,8 @@ public abstract class FixtureCreator {
         return roads;
     }
 
-    public Map<BigInteger, RidePoint> createRidePointFixture(int minId, int count, List<RoutePoint> routePoints) {
+    public Map<BigInteger, RidePoint> createRidePointFixture(int minId, int count,
+            List<RoutePoint> routePoints) {
         RidePointProvider ridePointProvider = getFactory().getProvider(RidePointProvider.class);
         Map<BigInteger, RidePoint> ridePoints = new HashMap<>();
         for (int i = 0; i < count; i++) {
@@ -287,7 +290,8 @@ public abstract class FixtureCreator {
                 ridePoint = ridePointProvider.create();
             }
             ridePoint.setArrivalTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, i % 24, i % 60, 0, 0));
-            ridePoint.setDepartureTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24, (i + 20) % 60, 0, 0));
+            ridePoint.setDepartureTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24,
+                    (i + 20) % 60, 0, 0));
             ridePoint.setRoutePoint(routePoints.isEmpty() ? null : routePoints.get(i % routePoints.size()));
             ridePoint = ridePointProvider.save(ridePoint);
             setIdManually(ridePoint, BigInteger.valueOf(minId + i));
@@ -296,7 +300,8 @@ public abstract class FixtureCreator {
         return ridePoints;
     }
 
-    public Map<BigInteger, RideRoad> createRideRoadFixture(int minId, int count, List<Driver> drivers, List<Road> roads) {
+    public Map<BigInteger, RideRoad> createRideRoadFixture(int minId, int count, List<Driver> drivers,
+            List<Road> roads) {
         RideRoadProvider rideRoadProvider = getFactory().getProvider(RideRoadProvider.class);
         Map<BigInteger, RideRoad> rideRoads = new HashMap<>();
         for (int i = 0; i < count; i++) {
@@ -326,7 +331,8 @@ public abstract class FixtureCreator {
             ticket.setCustomerName("Customer " + i);
             ticket.setDeparturePoint(ridePoints.isEmpty() ? null : ridePoints.get(i % ridePoints.size()));
             ticket.setPrice(BigDecimal.valueOf(i * 100));
-            ticket.setSaleDate(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24, (i + 20) % 60, 0, 0));
+            ticket.setSaleDate(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24,
+                    (i + 20) % 60, 0, 0));
             ticket.setSalesman(salesmen.isEmpty() ? null : salesmen.get(i % salesmen.size()));
             ticket.setSeat(i + 5);
             ticket.setSold(i % 2 == 0);

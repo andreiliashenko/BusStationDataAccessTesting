@@ -114,8 +114,9 @@ public abstract class RoutePointTest extends BasicDataAccessTestSceleton<RoutePo
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyStation(Collections.<Station>emptyList());
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(101),
-                BigInteger.valueOf(104), BigInteger.valueOf(107))));
+        resultCollection
+                = provider.collectIdsByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(101),
+                                        BigInteger.valueOf(104), BigInteger.valueOf(107))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);

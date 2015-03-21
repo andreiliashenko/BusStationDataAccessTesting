@@ -32,7 +32,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         DriverSkill driverSkill;
         DriverSkillProvider provider = getFactory().getProvider(DriverSkillProvider.class);
         driverSkill = provider.findById(id);
-
         driverSkill.setMaxPassengers(sourceSkill.getMaxPassengers());
         driverSkill.setMaxRideLength(sourceSkill.getMaxRideLength());
         driverSkill.setName(sourceSkill.getName());
@@ -50,7 +49,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
     @Override
     protected List<DriverSkill> getCreationTestSets() {
         List<DriverSkill> testSets = new ArrayList<>(7);
-
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Test name 1", 11, 1000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "", 22, 2000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, 33, 3000));
@@ -64,7 +62,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
     @Override
     protected List<DriverSkill> getUpdateTestSets() {
         List<DriverSkill> testSets = new ArrayList<>(7);
-
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, 11, 1000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Updated name 2", 22, 2000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Updated name 3", null, 0));
@@ -72,14 +69,12 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "", 0, 4000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, null, 5000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Updated name 7", 66, 6532));
-
         return testSets;
     }
 
     @Override
     protected List<List<DriverSkill>> performSearches() throws Exception {
         List<List<DriverSkill>> searchResult = new ArrayList<>(27);
-
         DriverSkillProvider provider = getFactory().getProvider(DriverSkillProvider.class);
         List<DriverSkill> resultCollection;
         resultCollection = provider.findByName(null);
@@ -90,7 +85,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.findByName("Name not to be found");
         searchResult.add(resultCollection);
-
         resultCollection = provider.findByMaxPassengersRange(null, true, null, true);
         searchResult.add(resultCollection);
         resultCollection = provider.findByMaxPassengersRange(75, false, 75, false);
@@ -113,7 +107,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.findByMaxPassengersRange(40, false, 70, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.findByMaxRideLengthRange(null, true, null, true);
         searchResult.add(resultCollection);
         resultCollection = provider.findByMaxRideLengthRange(1000, false, 1000, false);
@@ -136,23 +129,20 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.findByMaxRideLengthRange(700, false, 1300, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.findAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 
     @Override
     protected List<int[]> getExpectedSearchSets() {
         List<int[]> searchResult = new ArrayList<>(27);
-
         searchResult.add(new int[]{0, 1, 2});
         searchResult.add(new int[]{3, 4});
         searchResult.add(new int[]{5, 6});
         searchResult.add(new int[]{});
-        
-        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20});
+        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+            12, 13, 14, 15, 16, 17, 18, 19, 20});
         searchResult.add(new int[]{10});
         searchResult.add(new int[]{});
         searchResult.add(new int[]{5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20});
@@ -163,8 +153,8 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(new int[]{3, 4, 5, 6, 7, 8, 9});
         searchResult.add(new int[]{2, 3, 4, 5, 6});
         searchResult.add(new int[]{2, 3, 4, 5, 6, 7, 8, 9});
-
-        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20});
+        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+            14, 15, 16, 17, 18, 19, 20});
         searchResult.add(new int[]{5});
         searchResult.add(new int[]{});
         searchResult.add(new int[]{3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20});
@@ -174,22 +164,20 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(new int[]{4, 5, 6, 7, 8, 9, 10, 11, 12});
         searchResult.add(new int[]{6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17});
         searchResult.add(new int[]{3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14});
-        searchResult.add(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});;
-
-        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20});
-
+        searchResult.add(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});
+        searchResult.add(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+            13, 14, 15, 16, 17, 18, 19, 20});
         return searchResult;
     }
 
     @Override
-    protected  List<int[]> getExpectedCollectingSets() {
+    protected List<int[]> getExpectedCollectingSets() {
         return getExpectedSearchSets();
     }
 
     @Override
     protected List<DriverSkill> getSearchTestSets() {
         List<DriverSkill> testSets = new ArrayList<>(21);
-
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, null, null));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, null, 700));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, null, 40, 844));
@@ -211,14 +199,12 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Another name 12", 95, 1900));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Another name 13", 96, 2000));
         testSets.add(getNewDriverSkill(BigInteger.ZERO, "Another name 14", 97, 2200));
-
         return testSets;
     }
 
     @Override
     protected List<List<BigInteger>> performCollectings() throws Exception {
         List<List<BigInteger>> searchResult = new ArrayList<>(27);
-
         DriverSkillProvider provider = getFactory().getProvider(DriverSkillProvider.class);
         List<BigInteger> resultCollection;
         resultCollection = provider.collectIdsByName(null);
@@ -229,7 +215,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByName("Name not to be found");
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsByMaxPassengersRange(null, true, null, true);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByMaxPassengersRange(75, false, 75, false);
@@ -252,7 +237,6 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByMaxPassengersRange(40, false, 70, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsByMaxRideLengthRange(null, true, null, true);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByMaxRideLengthRange(1000, false, 1000, false);
@@ -275,14 +259,13 @@ public abstract class DriverSkillTest extends BasicDataAccessTestSceleton<Driver
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByMaxRideLengthRange(700, false, 1300, false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 
-    protected abstract DriverSkill getNewDriverSkill(BigInteger newId, String name, Integer maxPass, Integer maxRideLength);
+    protected abstract DriverSkill getNewDriverSkill(BigInteger newId, String name,
+            Integer maxPass, Integer maxRideLength);
 
     @Override
     protected DriverSkill nullifyCollections(DriverSkill entity) {

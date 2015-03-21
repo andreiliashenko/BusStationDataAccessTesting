@@ -30,11 +30,14 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
         Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
                 new ArrayList(gasLabels.values()));
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
         buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
                 new ArrayList(technicalStates.values()));
-        Map<BigInteger, MechanicSkill> mechanicSkills = getFixtureCreator().createMechanicSkillFixture(50, 5);
-        mechanics = getFixtureCreator().createMechanicFixture(50, 10, new ArrayList(mechanicSkills.values()));
+        Map<BigInteger, MechanicSkill> mechanicSkills
+                = getFixtureCreator().createMechanicSkillFixture(50, 5);
+        mechanics = getFixtureCreator().createMechanicFixture(50, 10,
+                new ArrayList(mechanicSkills.values()));
     }
 
     @Override
@@ -81,24 +84,27 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
         List<BusRefuelling> testSets = new ArrayList<>(4);
         testSets.add(getNewRefuelling(BigInteger.ZERO, null, null, null, null, null, null));
         testSets.add(getNewRefuelling(BigInteger.ZERO, null, null, null, BigDecimal.ZERO, null, 0));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(1994, 8, 7, 19, 29, 0, 0),
-                new DateTime(2000, 5, 8, 1, 0, 0, 0), BigDecimal.valueOf(3978.98), BigInteger.valueOf(66), 495));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2015, 3, 11, 23, 59, 0, 0),
-                new DateTime(2015, 3, 12, 11, 33, 0, 0), BigDecimal.valueOf(11111.11), BigInteger.valueOf(67), 1000));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(1994, 8, 7, 19, 29, 0, 0), new DateTime(2000, 5, 8, 1, 0, 0, 0),
+                BigDecimal.valueOf(3978.98), BigInteger.valueOf(66), 495));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2015, 3, 11, 23, 59, 0, 0), new DateTime(2015, 3, 12, 11, 33, 0, 0),
+                BigDecimal.valueOf(11111.11), BigInteger.valueOf(67), 1000));
         return testSets;
     }
 
     @Override
     protected List<BusRefuelling> getUpdateTestSets() throws Exception {
         List<BusRefuelling> testSets = new ArrayList<>(4);
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2016, 8, 29, 15, 24, 0, 0),
-                new DateTime(2016, 2, 3, 22, 12, 0, 0), BigDecimal.valueOf(789.09), BigInteger.valueOf(60), 30));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2016, 8, 29, 15, 24, 0, 0), new DateTime(2016, 2, 3, 22, 12, 0, 0),
+                BigDecimal.valueOf(789.09), BigInteger.valueOf(60), 30));
         testSets.add(getNewRefuelling(BigInteger.ZERO, null, new DateTime(2015, 12, 19, 13, 37, 0, 0),
                 new DateTime(2015, 10, 1, 16, 34, 0, 0), null, BigInteger.valueOf(64), 222));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2000, 7, 15, 7, 45, 0, 0),
-                new DateTime(2000, 8, 18, 11, 11, 0, 0), BigDecimal.valueOf(200000), null, null));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, null, null,
-                null, null, null, null));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2000, 7, 15, 7, 45, 0, 0), new DateTime(2000, 8, 18, 11, 11, 0, 0),
+                BigDecimal.valueOf(200000), null, null));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, null, null, null, null, null, null));
         return testSets;
     }
 
@@ -109,8 +115,8 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
         List<BusRefuelling> resultCollection;
         List<BigInteger> mechanicList = Arrays.asList(BigInteger.valueOf(50), BigInteger.valueOf(51),
                 BigInteger.valueOf(53), BigInteger.valueOf(54));
-        List<BigInteger> busList = Arrays.asList(BigInteger.valueOf(64), BigInteger.valueOf(65), BigInteger.valueOf(68));
-
+        List<BigInteger> busList = Arrays.asList(BigInteger.valueOf(64), BigInteger.valueOf(65),
+                BigInteger.valueOf(68));
         resultCollection = provider.findByMechanic(getMechanicById(BigInteger.valueOf(57)));
         searchResult.add(resultCollection);
         resultCollection = provider.findByAnyMechanic(getMechanicsByIds(mechanicList));
@@ -142,17 +148,20 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
         List<BigInteger> resultCollection;
         List<BigInteger> mechanicList = Arrays.asList(BigInteger.valueOf(50), BigInteger.valueOf(51),
                 BigInteger.valueOf(53), BigInteger.valueOf(54));
-        List<BigInteger> busList = Arrays.asList(BigInteger.valueOf(64), BigInteger.valueOf(65), BigInteger.valueOf(68));
-
+        List<BigInteger> busList = Arrays.asList(BigInteger.valueOf(64), BigInteger.valueOf(65),
+                BigInteger.valueOf(68));
         resultCollection = provider.collectIdsByMechanic(getMechanicById(BigInteger.valueOf(57)));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyMechanic(getMechanicsByIds(mechanicList));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByBeginTimeRange(new DateTime(2015, 1, 1, 1, 1, 0, 0), true, new DateTime(2015, 1, 1, 5, 6, 0, 0), false);
+        resultCollection = provider.collectIdsByBeginTimeRange(new DateTime(2015, 1, 1, 1, 1, 0, 0),
+                true, new DateTime(2015, 1, 1, 5, 6, 0, 0), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByEndTimeRange(new DateTime(2015, 1, 1, 7, 8, 0, 0), false, new DateTime(2015, 1, 1, 15, 17, 0, 0), true);
+        resultCollection = provider.collectIdsByEndTimeRange(new DateTime(2015, 1, 1, 7, 8, 0, 0), false,
+                new DateTime(2015, 1, 1, 15, 17, 0, 0), true);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(7890.12), true, BigDecimal.valueOf(20123.45), false);
+        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(7890.12), true,
+                BigDecimal.valueOf(20123.45), false);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByBus(getBusById(BigInteger.valueOf(64)));
         searchResult.add(resultCollection);
@@ -168,23 +177,27 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
     @Override
     protected List<BusRefuelling> getSearchTestSets() throws Exception {
         List<BusRefuelling> testSets = new ArrayList<>(5);
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2015, 1, 1, 1, 1, 0, 0),
-                new DateTime(2015, 1, 1, 2, 2, 0, 0), BigDecimal.valueOf(1234.56), BigInteger.valueOf(60), 100));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(53), new DateTime(2015, 1, 1, 3, 3, 0, 0),
-                new DateTime(2015, 1, 1, 4, 4, 0, 0), BigDecimal.valueOf(7890.12), BigInteger.valueOf(62), 389));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2015, 1, 1, 5, 6, 0, 0),
-                new DateTime(2015, 1, 1, 7, 8, 0, 0), BigDecimal.valueOf(14567.89), BigInteger.valueOf(64), 756));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(57), new DateTime(2015, 1, 1, 9, 10, 0, 0),
-                new DateTime(2015, 1, 1, 11, 12, 0, 0), BigDecimal.valueOf(20123.45), BigInteger.valueOf(66), 1023));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(59), new DateTime(2015, 1, 1, 13, 14, 0, 0),
-                new DateTime(2015, 1, 1, 15, 16, 0, 0), BigDecimal.valueOf(67890.02), BigInteger.valueOf(68), 1500));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2015, 1, 1, 1, 1, 0, 0), new DateTime(2015, 1, 1, 2, 2, 0, 0),
+                BigDecimal.valueOf(1234.56), BigInteger.valueOf(60), 100));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(53),
+                new DateTime(2015, 1, 1, 3, 3, 0, 0), new DateTime(2015, 1, 1, 4, 4, 0, 0),
+                BigDecimal.valueOf(7890.12), BigInteger.valueOf(62), 389));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2015, 1, 1, 5, 6, 0, 0), new DateTime(2015, 1, 1, 7, 8, 0, 0),
+                BigDecimal.valueOf(14567.89), BigInteger.valueOf(64), 756));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(57),
+                new DateTime(2015, 1, 1, 9, 10, 0, 0), new DateTime(2015, 1, 1, 11, 12, 0, 0),
+                BigDecimal.valueOf(20123.45), BigInteger.valueOf(66), 1023));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(59),
+                new DateTime(2015, 1, 1, 13, 14, 0, 0), new DateTime(2015, 1, 1, 15, 16, 0, 0),
+                BigDecimal.valueOf(67890.02), BigInteger.valueOf(68), 1500));
         return testSets;
     }
 
     @Override
     protected List<int[]> getExpectedSearchSets() {
         List<int[]> searchResult = new ArrayList<>(9);
-
         searchResult.add(new int[]{3});
         searchResult.add(new int[]{0, 1});
         searchResult.add(new int[]{1, 2});
@@ -207,8 +220,9 @@ public abstract class BusRefuellingTest extends BasicDataAccessTestSceleton<BusR
         return getNewRefuelling(id, mechanicId, beginTime, endTime, cost, busId, volume, false);
     }
 
-    protected abstract BusRefuelling getNewRefuelling(BigInteger id, BigInteger mechanicId, DateTime beginTime,
-            DateTime endTime, BigDecimal cost, BigInteger busId, Integer volume, boolean load);
+    protected abstract BusRefuelling getNewRefuelling(BigInteger id, BigInteger mechanicId,
+            DateTime beginTime, DateTime endTime, BigDecimal cost, BigInteger busId,
+            Integer volume, boolean load);
 
     protected Mechanic getMechanicById(BigInteger id) {
         return getMechanicById(id, false);

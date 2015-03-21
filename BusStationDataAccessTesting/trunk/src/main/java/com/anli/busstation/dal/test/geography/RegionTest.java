@@ -27,22 +27,21 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
     protected void createPrerequisites() throws Exception {
         super.createPrerequisites();
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
-
-        Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5, new ArrayList(gasLabels.values()));
-
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
-
-        Map<BigInteger, Bus> buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
-                new ArrayList(technicalStates.values()));
-
+        Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
+                new ArrayList(gasLabels.values()));
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, Bus> buses = getFixtureCreator().createBusFixture(60, 10,
+                new ArrayList(models.values()), new ArrayList(technicalStates.values()));
         Map<BigInteger, DriverSkill> driverSkills = getFixtureCreator().createDriverSkillFixture(40, 5);
-        Map<BigInteger, MechanicSkill> mechanicSkills = getFixtureCreator().createMechanicSkillFixture(50, 5);
-
+        Map<BigInteger, MechanicSkill> mechanicSkills
+                = getFixtureCreator().createMechanicSkillFixture(50, 5);
         Map<BigInteger, Employee> employees = new HashMap<>();
-        employees.putAll(getFixtureCreator().createDriverFixture(70, 5, new ArrayList(driverSkills.values())));
-        employees.putAll(getFixtureCreator().createMechanicFixture(80, 5, new ArrayList(mechanicSkills.values())));
+        employees.putAll(getFixtureCreator().createDriverFixture(70, 5,
+                new ArrayList(driverSkills.values())));
+        employees.putAll(getFixtureCreator().createMechanicFixture(80, 5,
+                new ArrayList(mechanicSkills.values())));
         employees.putAll(getFixtureCreator().createSalesmanFixture(90, 5));
-
         stations = getFixtureCreator().createStationFixture(100, 10,
                 new ArrayList(buses.values()), new ArrayList(employees.values()));
         for (Station station : stations.values()) {
@@ -121,7 +120,8 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
     @Override
     protected List<Region> getUpdateTestSets() throws Exception {
         List<BigInteger> stationList1 = Arrays.asList(BigInteger.valueOf(100), BigInteger.valueOf(106));
-        List<BigInteger> stationList2 = Arrays.asList(BigInteger.valueOf(104), BigInteger.valueOf(105), BigInteger.valueOf(109));
+        List<BigInteger> stationList2 = Arrays.asList(BigInteger.valueOf(104), BigInteger.valueOf(105),
+                BigInteger.valueOf(109));
         List<Region> testSets = new ArrayList<>(4);
         testSets.add(getNewRegion(BigInteger.ZERO, 99, "Новая Область", stationList1));
         testSets.add(getNewRegion(BigInteger.ZERO, 188, "Новый Край", new ArrayList()));
@@ -138,7 +138,6 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
         List<BigInteger> stationList = Arrays.asList(BigInteger.valueOf(101), BigInteger.valueOf(104),
                 BigInteger.valueOf(107));
         List<Integer> codeList = Arrays.asList(15, 20, 25, 30);
-
         resultCollection = provider.findByCode(null);
         searchResult.add(resultCollection);
         resultCollection = provider.findByCode(20);
@@ -170,7 +169,6 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
         List<BigInteger> stationList = Arrays.asList(BigInteger.valueOf(101), BigInteger.valueOf(104),
                 BigInteger.valueOf(107));
         List<Integer> codeList = Arrays.asList(15, 20, 25, 30);
-
         resultCollection = provider.collectIdsByCode(null);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByCode(20);
@@ -198,12 +196,11 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
     protected List<Region> getSearchTestSets() throws Exception {
         List<BigInteger> stationList1 = Arrays.asList(BigInteger.valueOf(100), BigInteger.valueOf(101),
                 BigInteger.valueOf(102), BigInteger.valueOf(103));
-        List<BigInteger> stationList2 = Arrays.asList(BigInteger.valueOf(104), BigInteger.valueOf(105), BigInteger.valueOf(106));
+        List<BigInteger> stationList2 = Arrays.asList(BigInteger.valueOf(104), BigInteger.valueOf(105),
+                BigInteger.valueOf(106));
         List<BigInteger> stationList3 = Arrays.asList(BigInteger.valueOf(107), BigInteger.valueOf(108));
         List<BigInteger> stationList4 = Arrays.asList(BigInteger.valueOf(109));
-
         List<Region> testSets = new ArrayList<>(5);
-
         testSets.add(getNewRegion(BigInteger.ZERO, 11, "", stationList1));
         testSets.add(getNewRegion(BigInteger.ZERO, 15, "Одна область", stationList2));
         testSets.add(getNewRegion(BigInteger.ZERO, 20, "Первый АО", stationList3));
@@ -215,7 +212,6 @@ public abstract class RegionTest extends BasicDataAccessTestSceleton<Region> {
     @Override
     protected List<int[]> getExpectedSearchSets() {
         List<int[]> indices = new ArrayList<>(10);
-
         indices.add(new int[]{});
         indices.add(new int[]{2});
         indices.add(new int[]{1, 2, 4});

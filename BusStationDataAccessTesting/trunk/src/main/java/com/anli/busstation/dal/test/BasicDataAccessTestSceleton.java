@@ -94,7 +94,6 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
 
     protected void testReading() throws Exception {
         List<I> testEntities = getCreationTestSets();
-
         for (I testEntity : testEntities) {
             BigInteger id = createEntityManually(testEntity);
             setEntityId(testEntity, id);
@@ -158,13 +157,10 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
 
     protected void testSearch() throws Exception {
         List<I> searchEntities = getSearchTestSets();
-
         List<I> createdEntities = new ArrayList<>(searchEntities.size());
-
         for (I searchEntity : searchEntities) {
             createdEntities.add(getEntityManually(createEntityManually(searchEntity)));
         }
-
         List<List<I>> rawExpected = getEntitiesByIndices(getExpectedSearchSets(),
                 createdEntities);
         List<List<I>> expected = new ArrayList<>(rawExpected.size());
@@ -178,7 +174,7 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
         while (expectedIter.hasNext() && actualIter.hasNext()) {
             List<I> expectedList = expectedIter.next();
             List<I> actualList = actualIter.next();
-            assertUnorderedList(expectedList, actualList, setNumber);
+            assertUnorderedEntityList(expectedList, actualList, setNumber);
             setNumber++;
         }
         if (expectedIter.hasNext() || actualIter.hasNext()) {
@@ -213,16 +209,12 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
 
     protected void testCollecting() throws Exception {
         List<I> searchSets = getSearchTestSets();
-
         List<BigInteger> createdIds = new ArrayList<>(searchSets.size());
-
         for (I searchSet : searchSets) {
             createdIds.add(createEntityManually(searchSet));
         }
-
         List<List<BigInteger>> expected = getIdsByIndices(getExpectedCollectingSets(), createdIds);
         List<List<BigInteger>> actual = performCollectings();
-
         Iterator<List<BigInteger>> expectedIter = expected.iterator();
         Iterator<List<BigInteger>> actualIter = actual.iterator();
         int setNumber = 0;
@@ -243,7 +235,7 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
         }
     }
 
-    protected void assertUnorderedList(List<I> expected, List<I> actual, int setNumber) {
+    protected void assertUnorderedEntityList(List<I> expected, List<I> actual, int setNumber) {
         Collections.sort(expected, new IdComparator());
         Collections.sort(actual, new IdComparator());
         Iterator<I> expectedIter = expected.iterator();
@@ -259,8 +251,9 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
             count++;
         }
         if (expectedIter.hasNext() || actualIter.hasNext()) {
-            throw new AssertionError("Set number " + setNumber + " Expected " + expected + " Actual " + actual
-                    + " Expected length " + expected.size() + " Actual length " + actual.size());
+            throw new AssertionError("Set number " + setNumber + " Expected " + expected
+                    + " Actual " + actual + " Expected length " + expected.size() + " Actual length "
+                    + actual.size());
         }
     }
 

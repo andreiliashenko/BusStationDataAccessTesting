@@ -40,11 +40,13 @@ public abstract class RideTest extends BasicDataAccessTestSceleton<Ride> {
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
         Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
                 new ArrayList(gasLabels.values()));
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
         Map<BigInteger, DriverSkill> skills = getFixtureCreator().createDriverSkillFixture(40, 5);
         buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
                 new ArrayList(technicalStates.values()));
-        Map<BigInteger, Driver> drivers = getFixtureCreator().createDriverFixture(70, 10, new ArrayList<>(skills.values()));
+        Map<BigInteger, Driver> drivers = getFixtureCreator().createDriverFixture(70, 10,
+                new ArrayList<>(skills.values()));
         Map<BigInteger, Salesman> salesmen = getFixtureCreator().createSalesmanFixture(90, 10);
         Map<BigInteger, Station> stations = getFixtureCreator().createStationFixture(100, 10,
                 new ArrayList<Bus>(0), new ArrayList<Employee>(0));
@@ -55,7 +57,8 @@ public abstract class RideTest extends BasicDataAccessTestSceleton<Ride> {
                 new ArrayList(stations.values()));
         Map<BigInteger, Road> roads = getFixtureCreator().createRoadFixture(120, 10,
                 new ArrayList<>(stations.values()));
-        ridePoints = getFixtureCreator().createRidePointFixture(130, 10, new ArrayList<>(routePoints.values()));
+        ridePoints = getFixtureCreator().createRidePointFixture(130, 10,
+                new ArrayList<>(routePoints.values()));
         rideRoads = getFixtureCreator().createRideRoadFixture(140, 10, new ArrayList<>(drivers.values()),
                 new ArrayList<>(roads.values()));
         tickets = getFixtureCreator().createTicketFixture(150, 10, new ArrayList<>(ridePoints.values()),
@@ -146,54 +149,60 @@ public abstract class RideTest extends BasicDataAccessTestSceleton<Ride> {
         List<Ride> testSets = new ArrayList<>(4);
         testSets.add(getNewRide(BigInteger.ZERO, null, new ArrayList<BigInteger>(),
                 new ArrayList<BigInteger>(), new ArrayList<BigInteger>()));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(60), Arrays.asList(BigInteger.valueOf(131),
-                BigInteger.valueOf(130)), Arrays.asList(BigInteger.valueOf(146), BigInteger.valueOf(145),
-                        BigInteger.valueOf(147)), Arrays.asList(BigInteger.valueOf(153))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62), Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(135), BigInteger.valueOf(134)), Arrays.asList(BigInteger.valueOf(140)),
-                Arrays.asList(BigInteger.valueOf(154), BigInteger.valueOf(151))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62), Arrays.asList(BigInteger.valueOf(138),
-                BigInteger.valueOf(139), BigInteger.valueOf(133)), Arrays.asList(BigInteger.valueOf(142),
-                        BigInteger.valueOf(144)), Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(156),
-                        BigInteger.valueOf(158))));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(60),
+                Arrays.asList(BigInteger.valueOf(131), BigInteger.valueOf(130)),
+                Arrays.asList(BigInteger.valueOf(146), BigInteger.valueOf(145), BigInteger.valueOf(147)),
+                Arrays.asList(BigInteger.valueOf(153))));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62),
+                Arrays.asList(BigInteger.valueOf(132), BigInteger.valueOf(135), BigInteger.valueOf(134)),
+                Arrays.asList(BigInteger.valueOf(140)), Arrays.asList(BigInteger.valueOf(154),
+                        BigInteger.valueOf(151))));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62),
+                Arrays.asList(BigInteger.valueOf(138), BigInteger.valueOf(139), BigInteger.valueOf(133)),
+                Arrays.asList(BigInteger.valueOf(142), BigInteger.valueOf(144)),
+                Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(156), BigInteger.valueOf(158))));
         return testSets;
     }
 
     @Override
     protected List<Ride> getUpdateTestSets() throws Exception {
         List<Ride> testSets = new ArrayList<>(4);
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(68), Arrays.asList(BigInteger.valueOf(137),
-                BigInteger.valueOf(138), BigInteger.valueOf(133)), Arrays.asList(BigInteger.valueOf(143),
-                        BigInteger.valueOf(144)), new ArrayList<BigInteger>()));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(68),
+                Arrays.asList(BigInteger.valueOf(137), BigInteger.valueOf(138), BigInteger.valueOf(133)),
+                Arrays.asList(BigInteger.valueOf(143), BigInteger.valueOf(144)),
+                new ArrayList<BigInteger>()));
         testSets.add(getNewRide(BigInteger.ZERO, null, new ArrayList<BigInteger>(),
                 Arrays.asList(BigInteger.valueOf(145), BigInteger.valueOf(144), BigInteger.valueOf(147)),
                 Arrays.asList(BigInteger.valueOf(153), BigInteger.valueOf(157))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(68), Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(135), BigInteger.valueOf(134)), Arrays.asList(BigInteger.valueOf(140), BigInteger.valueOf(141)),
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(68),
+                Arrays.asList(BigInteger.valueOf(132), BigInteger.valueOf(135), BigInteger.valueOf(134)),
+                Arrays.asList(BigInteger.valueOf(140), BigInteger.valueOf(141)),
                 Arrays.asList(BigInteger.valueOf(155), BigInteger.valueOf(154))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62), Arrays.asList(BigInteger.valueOf(139),
-                BigInteger.valueOf(136), BigInteger.valueOf(130)), Arrays.asList(BigInteger.valueOf(142),
-                        BigInteger.valueOf(149)), Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(156),
-                        BigInteger.valueOf(158))));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(62),
+                Arrays.asList(BigInteger.valueOf(139), BigInteger.valueOf(136), BigInteger.valueOf(130)),
+                Arrays.asList(BigInteger.valueOf(142), BigInteger.valueOf(149)),
+                Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(156), BigInteger.valueOf(158))));
         return testSets;
     }
 
     @Override
     protected List<Ride> getSearchTestSets() throws Exception {
         List<Ride> testSets = new ArrayList<>(4);
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(60), Arrays.asList(BigInteger.valueOf(130),
-                BigInteger.valueOf(133), BigInteger.valueOf(134)), Arrays.asList(BigInteger.valueOf(142),
-                        BigInteger.valueOf(145)), new ArrayList<BigInteger>()));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(60),
+                Arrays.asList(BigInteger.valueOf(130), BigInteger.valueOf(133), BigInteger.valueOf(134)),
+                Arrays.asList(BigInteger.valueOf(142), BigInteger.valueOf(145)),
+                new ArrayList<BigInteger>()));
         testSets.add(getNewRide(BigInteger.ZERO, null, new ArrayList<BigInteger>(),
                 Arrays.asList(BigInteger.valueOf(141), BigInteger.valueOf(146), BigInteger.valueOf(147)),
                 Arrays.asList(BigInteger.valueOf(158), BigInteger.valueOf(157))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(61), Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(135), BigInteger.valueOf(139)), Arrays.asList(BigInteger.valueOf(140)),
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(61),
+                Arrays.asList(BigInteger.valueOf(132), BigInteger.valueOf(135), BigInteger.valueOf(139)),
+                Arrays.asList(BigInteger.valueOf(140)),
                 Arrays.asList(BigInteger.valueOf(155), BigInteger.valueOf(152))));
-        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(65), Arrays.asList(BigInteger.valueOf(136),
-                BigInteger.valueOf(131)), Arrays.asList(BigInteger.valueOf(143),
-                        BigInteger.valueOf(149)), Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(150),
-                        BigInteger.valueOf(156))));
+        testSets.add(getNewRide(BigInteger.ZERO, BigInteger.valueOf(65),
+                Arrays.asList(BigInteger.valueOf(136), BigInteger.valueOf(131)),
+                Arrays.asList(BigInteger.valueOf(143), BigInteger.valueOf(149)),
+                Arrays.asList(BigInteger.valueOf(159), BigInteger.valueOf(150), BigInteger.valueOf(156))));
         return testSets;
     }
 
@@ -209,17 +218,21 @@ public abstract class RideTest extends BasicDataAccessTestSceleton<Ride> {
         searchResult.add(resultCollection);
         resultCollection = provider.findByRidePoint(getRidePointById(BigInteger.valueOf(131)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyRidePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(133))));
+        resultCollection
+                = provider.findByAnyRidePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
+                                        BigInteger.valueOf(133))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByRideRoad(getRideRoadById(BigInteger.valueOf(146)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyRideRoad(getRideRoadsByIds(Arrays.asList(BigInteger.valueOf(145),
-                BigInteger.valueOf(148), BigInteger.valueOf(147))));
+        resultCollection
+                = provider.findByAnyRideRoad(getRideRoadsByIds(Arrays.asList(BigInteger.valueOf(145),
+                                        BigInteger.valueOf(148), BigInteger.valueOf(147))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByTicket(getTicketById(BigInteger.valueOf(152)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyTicket(getTicketsByIds(Arrays.asList(BigInteger.valueOf(155), BigInteger.valueOf(156))));
+        resultCollection
+                = provider.findByAnyTicket(getTicketsByIds(Arrays.asList(BigInteger.valueOf(155),
+                                        BigInteger.valueOf(156))));
         searchResult.add(resultCollection);
         resultCollection = provider.findAll();
         searchResult.add(resultCollection);
@@ -238,18 +251,21 @@ public abstract class RideTest extends BasicDataAccessTestSceleton<Ride> {
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByRidePoint(getRidePointById(BigInteger.valueOf(131)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyRidePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(133))));
+        resultCollection
+                = provider.collectIdsByAnyRidePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
+                                        BigInteger.valueOf(133))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByRideRoad(getRideRoadById(BigInteger.valueOf(146)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyRideRoad(getRideRoadsByIds(Arrays.asList(BigInteger.valueOf(145),
-                BigInteger.valueOf(148), BigInteger.valueOf(147))));
+        resultCollection
+                = provider.collectIdsByAnyRideRoad(getRideRoadsByIds(Arrays.asList(BigInteger.valueOf(145),
+                                        BigInteger.valueOf(148), BigInteger.valueOf(147))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByTicket(getTicketById(BigInteger.valueOf(152)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyTicket(getTicketsByIds(Arrays.asList(BigInteger.valueOf(155),
-                BigInteger.valueOf(156))));
+        resultCollection
+                = provider.collectIdsByAnyTicket(getTicketsByIds(Arrays.asList(BigInteger.valueOf(155),
+                                        BigInteger.valueOf(156))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);
