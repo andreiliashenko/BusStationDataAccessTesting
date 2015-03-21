@@ -135,7 +135,8 @@ public abstract class BusTest extends BasicDataAccessTestSceleton<Bus> {
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByState(null);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyState(Arrays.asList(getStateById(BigInteger.valueOf(33)), getStateById(BigInteger.valueOf(32))));
+        resultCollection = provider.collectIdsByAnyState(Arrays.asList(getStateById(BigInteger.valueOf(33)),
+                getStateById(BigInteger.valueOf(32))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByPlate("п109ец");
         searchResult.add(resultCollection);
@@ -197,7 +198,8 @@ public abstract class BusTest extends BasicDataAccessTestSceleton<Bus> {
     }
 
     protected TechnicalState getStateById(BigInteger id, boolean load) {
-        return load ? getFactory().getProvider(TechnicalStateProvider.class).findById(id) : technicalStates.get(id);
+        return load ? getFactory().getProvider(TechnicalStateProvider.class).findById(id)
+                : technicalStates.get(id);
     }
 
     @Override

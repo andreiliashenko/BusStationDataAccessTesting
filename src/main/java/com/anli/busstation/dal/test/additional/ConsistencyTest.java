@@ -91,6 +91,7 @@ public abstract class ConsistencyTest extends AbstractDataAccessTest {
         Road road = roadProvider.create();
         road.setLength(5000);
         roadProvider.remove(road);
+
         try {
             roadProvider.save(road);
             throw new AssertionError(ConsistencyException.class.getName() + " expected");
@@ -107,6 +108,7 @@ public abstract class ConsistencyTest extends AbstractDataAccessTest {
         StationServiceProvider serviceProvider = getFactory().getProvider(StationServiceProvider.class);
         StationService service = serviceProvider.create();
         serviceProvider.remove(service);
+
         try {
             serviceProvider.remove(service);
             throw new AssertionError(ConsistencyException.class.getName() + " expected");

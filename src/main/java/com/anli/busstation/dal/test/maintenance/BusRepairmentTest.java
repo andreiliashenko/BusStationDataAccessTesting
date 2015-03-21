@@ -30,11 +30,14 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
         Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
                 new ArrayList(gasLabels.values()));
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
         buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
                 new ArrayList(technicalStates.values()));
-        Map<BigInteger, MechanicSkill> mechanicSkills = getFixtureCreator().createMechanicSkillFixture(50, 5);
-        mechanics = getFixtureCreator().createMechanicFixture(50, 10, new ArrayList(mechanicSkills.values()));
+        Map<BigInteger, MechanicSkill> mechanicSkills
+                = getFixtureCreator().createMechanicSkillFixture(50, 5);
+        mechanics = getFixtureCreator().createMechanicFixture(50, 10,
+                new ArrayList(mechanicSkills.values()));
     }
 
     @Override
@@ -80,25 +83,30 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
     protected List<BusRepairment> getCreationTestSets() throws Exception {
         List<BusRepairment> testSets = new ArrayList<>(4);
         testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, null, null, null));
-        testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, BigDecimal.ZERO, null, BigDecimal.ZERO));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(1992, 4, 25, 15, 21, 0, 0),
-                new DateTime(1993, 1, 1, 18, 33, 0, 0), BigDecimal.valueOf(5550.99), BigInteger.valueOf(64), BigDecimal.valueOf(4401.32)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(57), new DateTime(2006, 11, 11, 23, 55, 0, 0),
-                new DateTime(2006, 6, 17, 18, 59, 0, 0), BigDecimal.valueOf(70730.29), BigInteger.valueOf(66), BigDecimal.valueOf(25999.98)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, BigDecimal.ZERO,
+                null, BigDecimal.ZERO));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(1992, 4, 25, 15, 21, 0, 0), new DateTime(1993, 1, 1, 18, 33, 0, 0),
+                BigDecimal.valueOf(5550.99), BigInteger.valueOf(64), BigDecimal.valueOf(4401.32)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(57),
+                new DateTime(2006, 11, 11, 23, 55, 0, 0), new DateTime(2006, 6, 17, 18, 59, 0, 0),
+                BigDecimal.valueOf(70730.29), BigInteger.valueOf(66), BigDecimal.valueOf(25999.98)));
         return testSets;
     }
 
     @Override
     protected List<BusRepairment> getUpdateTestSets() throws Exception {
         List<BusRepairment> testSets = new ArrayList<>(4);
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(59), new DateTime(1999, 10, 31, 17, 7, 0, 0),
-                new DateTime(1999, 12, 31, 23, 59, 0, 0), BigDecimal.valueOf(10666.66), BigInteger.valueOf(68), BigDecimal.valueOf(9000)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(59),
+                new DateTime(1999, 10, 31, 17, 7, 0, 0), new DateTime(1999, 12, 31, 23, 59, 0, 0),
+                BigDecimal.valueOf(10666.66), BigInteger.valueOf(68), BigDecimal.valueOf(9000)));
         testSets.add(getNewRepairment(BigInteger.ZERO, null, new DateTime(2005, 2, 28, 10, 42, 0, 0),
-                new DateTime(2005, 2, 28, 13, 0, 0, 0), null, BigInteger.valueOf(67), BigDecimal.valueOf(1000.10)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(53), new DateTime(2000, 7, 15, 7, 45, 0, 0),
-                new DateTime(2000, 8, 18, 11, 11, 0, 0), BigDecimal.valueOf(200000), null, null));
-        testSets.add(getNewRepairment(BigInteger.ZERO, null, null,
-                null, null, null, null));
+                new DateTime(2005, 2, 28, 13, 0, 0, 0), null, BigInteger.valueOf(67),
+                BigDecimal.valueOf(1000.10)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(53),
+                new DateTime(2000, 7, 15, 7, 45, 0, 0), new DateTime(2000, 8, 18, 11, 11, 0, 0),
+                BigDecimal.valueOf(200000), null, null));
+        testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, null, null, null));
         return testSets;
     }
 
@@ -122,7 +130,8 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
         resultCollection = provider.findByEndTimeRange(new DateTime(2014, 5, 9, 3, 10, 0, 0), true,
                 new DateTime(2014, 5, 9, 10, 35, 0, 0), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.findByServiceCostRange(BigDecimal.valueOf(9812.99), false, BigDecimal.valueOf(20000.01), true);
+        resultCollection = provider.findByServiceCostRange(BigDecimal.valueOf(9812.99), false,
+                BigDecimal.valueOf(20000.01), true);
         searchResult.add(resultCollection);
         resultCollection = provider.findByBus(getBusById(BigInteger.valueOf(63)));
         searchResult.add(resultCollection);
@@ -156,13 +165,15 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
         resultCollection = provider.collectIdsByEndTimeRange(new DateTime(2014, 5, 9, 3, 10, 0, 0), true,
                 new DateTime(2014, 5, 9, 10, 35, 0, 0), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(9812.99), false, BigDecimal.valueOf(20000.01), true);
+        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(9812.99), false,
+                BigDecimal.valueOf(20000.01), true);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByBus(getBusById(BigInteger.valueOf(63)));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyBus(getBusesByIds(busList));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByExpendablesPriceRange(BigDecimal.valueOf(500.50), true, BigDecimal.valueOf(2222.22), false);
+        resultCollection = provider.collectIdsByExpendablesPriceRange(BigDecimal.valueOf(500.50), true,
+                BigDecimal.valueOf(2222.22), false);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);
@@ -172,23 +183,27 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
     @Override
     protected List<BusRepairment> getSearchTestSets() throws Exception {
         List<BusRepairment> testSets = new ArrayList<>(5);
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(2014, 5, 9, 1, 15, 0, 0),
-                new DateTime(2014, 5, 9, 2, 30, 0, 0), BigDecimal.valueOf(1111.11), BigInteger.valueOf(61), BigDecimal.valueOf(500.50)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(52), new DateTime(2014, 5, 9, 2, 45, 0, 0),
-                new DateTime(2014, 5, 9, 3, 10, 0, 0), BigDecimal.valueOf(3356.79), BigInteger.valueOf(63), BigDecimal.valueOf(600.25)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(54), new DateTime(2014, 5, 9, 5, 55, 0, 0),
-                new DateTime(2014, 5, 9, 7, 0, 0, 0), BigDecimal.valueOf(5987.01), BigInteger.valueOf(65), BigDecimal.valueOf(700.75)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(56), new DateTime(2014, 5, 9, 8, 20, 0, 0),
-                new DateTime(2014, 5, 9, 10, 35, 0, 0), BigDecimal.valueOf(9812.99), BigInteger.valueOf(67), BigDecimal.valueOf(2222.22)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(58), new DateTime(2014, 5, 9, 12, 0, 0, 0),
-                new DateTime(2014, 5, 9, 16, 5, 0, 0), BigDecimal.valueOf(20000), BigInteger.valueOf(69), BigDecimal.valueOf(3333.33)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(2014, 5, 9, 1, 15, 0, 0), new DateTime(2014, 5, 9, 2, 30, 0, 0),
+                BigDecimal.valueOf(1111.11), BigInteger.valueOf(61), BigDecimal.valueOf(500.50)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(52),
+                new DateTime(2014, 5, 9, 2, 45, 0, 0), new DateTime(2014, 5, 9, 3, 10, 0, 0),
+                BigDecimal.valueOf(3356.79), BigInteger.valueOf(63), BigDecimal.valueOf(600.25)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(54),
+                new DateTime(2014, 5, 9, 5, 55, 0, 0), new DateTime(2014, 5, 9, 7, 0, 0, 0),
+                BigDecimal.valueOf(5987.01), BigInteger.valueOf(65), BigDecimal.valueOf(700.75)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(56),
+                new DateTime(2014, 5, 9, 8, 20, 0, 0), new DateTime(2014, 5, 9, 10, 35, 0, 0),
+                BigDecimal.valueOf(9812.99), BigInteger.valueOf(67), BigDecimal.valueOf(2222.22)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(58),
+                new DateTime(2014, 5, 9, 12, 0, 0, 0), new DateTime(2014, 5, 9, 16, 5, 0, 0),
+                BigDecimal.valueOf(20000), BigInteger.valueOf(69), BigDecimal.valueOf(3333.33)));
         return testSets;
     }
 
     @Override
     protected List<int[]> getExpectedSearchSets() {
         List<int[]> searchResult = new ArrayList(9);
-
         searchResult.add(new int[]{0});
         searchResult.add(new int[]{0, 1});
         searchResult.add(new int[]{1, 2});
@@ -211,8 +226,9 @@ public abstract class BusRepairmentTest extends BasicDataAccessTestSceleton<BusR
         return getNewRepairment(id, mechanicId, beginTime, endTime, cost, busId, price, false);
     }
 
-    protected abstract BusRepairment getNewRepairment(BigInteger id, BigInteger mechanicId, DateTime beginTime,
-            DateTime endTime, BigDecimal cost, BigInteger busId, BigDecimal price, boolean load);
+    protected abstract BusRepairment getNewRepairment(BigInteger id, BigInteger mechanicId,
+            DateTime beginTime, DateTime endTime, BigDecimal cost, BigInteger busId,
+            BigDecimal price, boolean load);
 
     protected Mechanic getMechanicById(BigInteger id) {
         return getMechanicById(id, false);

@@ -34,9 +34,10 @@ public abstract class RouteTest extends BasicDataAccessTestSceleton<Route> {
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
         Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
                 new ArrayList(gasLabels.values()));
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
-        Map<BigInteger, Bus> buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
-                new ArrayList(technicalStates.values()));
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, Bus> buses = getFixtureCreator().createBusFixture(60, 10,
+                new ArrayList(models.values()), new ArrayList(technicalStates.values()));
         Map<BigInteger, Station> stations = getFixtureCreator().createStationFixture(100, 10,
                 new ArrayList<Bus>(0), new ArrayList<Employee>(0));
         for (Station station : stations.values()) {

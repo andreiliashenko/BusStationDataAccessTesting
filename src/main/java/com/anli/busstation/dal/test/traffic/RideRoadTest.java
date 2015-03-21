@@ -124,8 +124,9 @@ public abstract class RideRoadTest extends BasicDataAccessTestSceleton<RideRoad>
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDriver(getDriverById(BigInteger.valueOf(72)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyDriver(getDriversByIds(Arrays.asList(BigInteger.valueOf(70),
-                BigInteger.valueOf(71), BigInteger.valueOf(73))));
+        resultCollection
+                = provider.collectIdsByAnyDriver(getDriversByIds(Arrays.asList(BigInteger.valueOf(70),
+                                        BigInteger.valueOf(71), BigInteger.valueOf(73))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByRoad(getRoadById(BigInteger.valueOf(125)));
         searchResult.add(resultCollection);

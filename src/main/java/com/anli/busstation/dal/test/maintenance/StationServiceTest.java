@@ -21,8 +21,10 @@ public abstract class StationServiceTest extends BasicDataAccessTestSceleton<Sta
     @Override
     protected void createPrerequisites() throws Exception {
         super.createPrerequisites();
-        Map<BigInteger, MechanicSkill> mechanicSkills = getFixtureCreator().createMechanicSkillFixture(50, 5);
-        mechanics = getFixtureCreator().createMechanicFixture(50, 10, new ArrayList(mechanicSkills.values()));
+        Map<BigInteger, MechanicSkill> mechanicSkills
+                = getFixtureCreator().createMechanicSkillFixture(50, 5);
+        mechanics = getFixtureCreator().createMechanicFixture(50, 10,
+                new ArrayList(mechanicSkills.values()));
     }
 
     @Override
@@ -67,26 +69,27 @@ public abstract class StationServiceTest extends BasicDataAccessTestSceleton<Sta
         List<StationService> testSets = new ArrayList<>(4);
         testSets.add(getNewService(BigInteger.ZERO, null, null, null, null, null));
         testSets.add(getNewService(BigInteger.ZERO, null, null, null, BigDecimal.ZERO, ""));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(1991, 1, 1, 15, 20, 0, 0),
-                new DateTime(1991, 1, 1, 16, 30, 0, 0), BigDecimal.valueOf(5550.99), "Помывка"));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(1998, 1, 1, 14, 0, 0, 0),
-                new DateTime(2001, 6, 5, 12, 15, 0, 0), BigDecimal.valueOf(70730.29), "Реставрация"));
-
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(1991, 1, 1, 15, 20, 0, 0), new DateTime(1991, 1, 1, 16, 30, 0, 0),
+                BigDecimal.valueOf(5550.99), "Помывка"));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(1998, 1, 1, 14, 0, 0, 0), new DateTime(2001, 6, 5, 12, 15, 0, 0),
+                BigDecimal.valueOf(70730.29), "Реставрация"));
         return testSets;
     }
 
     @Override
     protected List<StationService> getUpdateTestSets() throws Exception {
         List<StationService> testSets = new ArrayList<>(4);
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2007, 11, 30, 8, 5, 0, 0),
-                new DateTime(2007, 11, 30, 10, 25, 0, 0), BigDecimal.valueOf(10000), "Уборка"));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2007, 11, 30, 8, 5, 0, 0), new DateTime(2007, 11, 30, 10, 25, 0, 0),
+                BigDecimal.valueOf(10000), "Уборка"));
         testSets.add(getNewService(BigInteger.ZERO, null, new DateTime(2009, 12, 12, 9, 30, 0, 0),
                 new DateTime(2009, 12, 12, 17, 0, 0, 0), null, "Осмотр"));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2000, 7, 15, 7, 45, 0, 0),
-                new DateTime(2000, 8, 18, 11, 11, 0, 0), BigDecimal.valueOf(200000), ""));
-        testSets.add(getNewService(BigInteger.ZERO, null, null,
-                null, null, null));
-
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2000, 7, 15, 7, 45, 0, 0), new DateTime(2000, 8, 18, 11, 11, 0, 0),
+                BigDecimal.valueOf(200000), ""));
+        testSets.add(getNewService(BigInteger.ZERO, null, null, null, null, null));
         return testSets;
     }
 
@@ -134,11 +137,14 @@ public abstract class StationServiceTest extends BasicDataAccessTestSceleton<Sta
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyMechanic(getMechanicsByIds(mechanicList));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByBeginTimeRange(new DateTime(2014, 2, 15, 16, 0, 0, 0), true, new DateTime(2014, 4, 1, 12, 10, 0, 0), false);
+        resultCollection = provider.collectIdsByBeginTimeRange(new DateTime(2014, 2, 15, 16, 0, 0, 0), true,
+                new DateTime(2014, 4, 1, 12, 10, 0, 0), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByEndTimeRange(new DateTime(2014, 2, 20, 8, 40, 0, 0), false, new DateTime(2014, 11, 7, 9, 0, 0, 0), true);
+        resultCollection = provider.collectIdsByEndTimeRange(new DateTime(2014, 2, 20, 8, 40, 0, 0), false,
+                new DateTime(2014, 11, 7, 9, 0, 0, 0), true);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(5000), true, BigDecimal.valueOf(25000), false);
+        resultCollection = provider.collectIdsByServiceCostRange(BigDecimal.valueOf(5000), true,
+                BigDecimal.valueOf(25000), false);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDescriptionRegexp("[Оо]дин");
         searchResult.add(resultCollection);
@@ -150,17 +156,19 @@ public abstract class StationServiceTest extends BasicDataAccessTestSceleton<Sta
     @Override
     protected List<StationService> getSearchTestSets() throws Exception {
         List<StationService> testSets = new ArrayList<>(5);
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(2014, 2, 15, 16, 0, 0, 0),
-                new DateTime(2014, 2, 15, 20, 15, 0, 0), null, "Один два три"));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2014, 2, 19, 8, 40, 0, 0),
-                new DateTime(2014, 2, 20, 8, 40, 0, 0), BigDecimal.valueOf(5000), ""));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(52), new DateTime(2014, 4, 1, 12, 10, 0, 0),
-                null, BigDecimal.valueOf(5500), null));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(2014, 2, 15, 16, 0, 0, 0), new DateTime(2014, 2, 15, 20, 15, 0, 0),
+                null, "Один два три"));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2014, 2, 19, 8, 40, 0, 0), new DateTime(2014, 2, 20, 8, 40, 0, 0),
+                BigDecimal.valueOf(5000), ""));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(52),
+                new DateTime(2014, 4, 1, 12, 10, 0, 0), null, BigDecimal.valueOf(5500), null));
         testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(53), null,
                 new DateTime(2014, 7, 27, 21, 50, 0, 0), BigDecimal.valueOf(25000), "Четыре пять шесть"));
         testSets.add(getNewService(BigInteger.ZERO, null, new DateTime(2014, 11, 7, 8, 0, 0, 0),
-                new DateTime(2014, 11, 7, 9, 0, 0, 0), BigDecimal.valueOf(100000), "Семь восемь девять десять"));
-
+                new DateTime(2014, 11, 7, 9, 0, 0, 0), BigDecimal.valueOf(100000),
+                "Семь восемь девять десять"));
         return testSets;
     }
 
@@ -188,8 +196,8 @@ public abstract class StationServiceTest extends BasicDataAccessTestSceleton<Sta
         return getNewService(id, mechanicId, beginTime, endTime, cost, description, false);
     }
 
-    protected abstract StationService getNewService(BigInteger id, BigInteger mechanicId, DateTime beginTime,
-            DateTime endTime, BigDecimal cost, String description, boolean load);
+    protected abstract StationService getNewService(BigInteger id, BigInteger mechanicId,
+            DateTime beginTime, DateTime endTime, BigDecimal cost, String description, boolean load);
 
     protected Mechanic getMechanicById(BigInteger id) {
         return getMechanicById(id, false);

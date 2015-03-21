@@ -77,8 +77,10 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
     @Override
     protected List<Road> getUpdateTestSets() throws Exception {
         List<Road> testSets = new ArrayList<>(4);
-        testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(105), 705, BigDecimal.valueOf(0), null));
-        testSets.add(getNewRoad(BigInteger.ZERO, null, null, BigDecimal.valueOf(500), BigInteger.valueOf(100)));
+        testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(105), 705, BigDecimal.valueOf(0),
+                null));
+        testSets.add(getNewRoad(BigInteger.ZERO, null, null, BigDecimal.valueOf(500),
+                BigInteger.valueOf(100)));
         testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(107), 0, null,
                 BigInteger.valueOf(104)));
         testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(107), 1000, BigDecimal.valueOf(560.01),
@@ -95,7 +97,8 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
                 BigInteger.valueOf(105)));
         testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(106), 2500, BigDecimal.valueOf(178),
                 BigInteger.valueOf(107)));
-        testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(107), 3300, BigDecimal.valueOf(205.32), null));
+        testSets.add(getNewRoad(BigInteger.ZERO, BigInteger.valueOf(107), 3300, BigDecimal.valueOf(205.32),
+                null));
         testSets.add(getNewRoad(BigInteger.ZERO, null, 3310, BigDecimal.valueOf(222.33),
                 BigInteger.valueOf(109)));
         return testSets;
@@ -108,13 +111,15 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
         List<Road> resultCollection;
         resultCollection = provider.findByAStation(getStationById(BigInteger.valueOf(102)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyAStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(102),
-                BigInteger.valueOf(105), BigInteger.valueOf(106))));
+        resultCollection
+                = provider.findByAnyAStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(102),
+                                        BigInteger.valueOf(105), BigInteger.valueOf(106))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByZStation(null);
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyZStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
-                BigInteger.valueOf(106), BigInteger.valueOf(109))));
+        resultCollection
+                = provider.findByAnyZStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
+                                        BigInteger.valueOf(106), BigInteger.valueOf(109))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByAnyZStation(null);
         searchResult.add(resultCollection);
@@ -126,8 +131,9 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
         searchResult.add(resultCollection);
         resultCollection = provider.findByAnyStation(Collections.<Station>emptyList());
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
-                BigInteger.valueOf(106), BigInteger.valueOf(109))));
+        resultCollection
+                = provider.findByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
+                                        BigInteger.valueOf(106), BigInteger.valueOf(109))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByLengthRange(450, false, 3300, true);
         searchResult.add(resultCollection);
@@ -146,13 +152,15 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
         List<BigInteger> resultCollection;
         resultCollection = provider.collectIdsByAStation(getStationById(BigInteger.valueOf(102)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyAStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(102),
-                BigInteger.valueOf(105), BigInteger.valueOf(106))));
+        resultCollection
+                = provider.collectIdsByAnyAStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(102),
+                                        BigInteger.valueOf(105), BigInteger.valueOf(106))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByZStation(null);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyZStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
-                BigInteger.valueOf(106), BigInteger.valueOf(109))));
+        resultCollection
+                = provider.collectIdsByAnyZStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
+                                        BigInteger.valueOf(106), BigInteger.valueOf(109))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyZStation(null);
         searchResult.add(resultCollection);
@@ -164,8 +172,9 @@ public abstract class RoadTest extends BasicDataAccessTestSceleton<Road> {
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByAnyStation(Collections.<Station>emptyList());
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
-                BigInteger.valueOf(106), BigInteger.valueOf(109))));
+        resultCollection
+                = provider.collectIdsByAnyStation(getStationsByIds(Arrays.asList(BigInteger.valueOf(105),
+                                        BigInteger.valueOf(106), BigInteger.valueOf(109))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByLengthRange(450, false, 3300, true);
         searchResult.add(resultCollection);

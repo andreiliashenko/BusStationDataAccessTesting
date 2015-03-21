@@ -57,22 +57,18 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
     @Override
     protected List<GasLabel> getUpdateTestSets() {
         List<GasLabel> testSets = new ArrayList<>(4);
-
         testSets.add(getNewGasLabel(BigInteger.ZERO, "Updated Name 1", BigDecimal.valueOf(1.12)));
         testSets.add(getNewGasLabel(BigInteger.ZERO, "Updated Name 2", null));
         testSets.add(getNewGasLabel(BigInteger.ZERO, null, new BigDecimal("25.27")));
         testSets.add(getNewGasLabel(BigInteger.ZERO, "", BigDecimal.ZERO));
-
         return testSets;
     }
 
     @Override
     protected List<List<GasLabel>> performSearches() throws Exception {
         List<List<GasLabel>> searchResult = new ArrayList(17);
-
         GasLabelProvider provider = getFactory().getProvider(GasLabelProvider.class);
         List<GasLabel> resultCollection;
-
         resultCollection = provider.findByName(null);
         searchResult.add(resultCollection);
         resultCollection = provider.findByName("");
@@ -83,7 +79,6 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
         searchResult.add(resultCollection);
         resultCollection = provider.findByNameRegexp("^N[0-9]$");
         searchResult.add(resultCollection);
-
         resultCollection = provider.findByPriceRange(null, true, null, false);
         searchResult.add(resultCollection);
         resultCollection = provider.findByPriceRange(BigDecimal.valueOf(25), false,
@@ -112,17 +107,14 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
         resultCollection = provider.findByPriceRange(BigDecimal.valueOf(23), false,
                 BigDecimal.valueOf(27), false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.findAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 
     @Override
     protected List<GasLabel> getSearchTestSets() {
         List<GasLabel> testSets = new ArrayList<>(12);
-
         testSets.add(getNewGasLabel(BigInteger.ZERO, null, null));
         testSets.add(getNewGasLabel(BigInteger.ZERO, null, BigDecimal.valueOf(20)));
         testSets.add(getNewGasLabel(BigInteger.ZERO, "", BigDecimal.valueOf(23)));
@@ -135,7 +127,6 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
         testSets.add(getNewGasLabel(BigInteger.ZERO, "NN99", BigDecimal.valueOf(27.15)));
         testSets.add(getNewGasLabel(BigInteger.ZERO, "NN91", BigDecimal.valueOf(27.16)));
         testSets.add(getNewGasLabel(BigInteger.ZERO, "NN92", BigDecimal.valueOf(28.3)));
-
         return testSets;
     }
 
@@ -170,10 +161,8 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
     @Override
     protected List<List<BigInteger>> performCollectings() throws Exception {
         List<List<BigInteger>> searchResult = new ArrayList<>(17);
-
         GasLabelProvider provider = getFactory().getProvider(GasLabelProvider.class);
         List<BigInteger> resultCollection;
-
         resultCollection = provider.collectIdsByName(null);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByName("");
@@ -184,7 +173,6 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByNameRegexp("^N[0-9]$");
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsByPriceRange(null, true, null, false);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByPriceRange(BigDecimal.valueOf(25), false,
@@ -213,10 +201,8 @@ public abstract class GasLabelTest extends BasicDataAccessTestSceleton<GasLabel>
         resultCollection = provider.collectIdsByPriceRange(BigDecimal.valueOf(23), false,
                 BigDecimal.valueOf(27), false);
         searchResult.add(resultCollection);
-
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);
-
         return searchResult;
     }
 

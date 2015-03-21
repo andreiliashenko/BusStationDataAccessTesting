@@ -27,7 +27,8 @@ public abstract class RidePointTest extends BasicDataAccessTestSceleton<RidePoin
         for (Station station : stations.values()) {
             nullifyStationCollections(station);
         }
-        routePoints = getFixtureCreator().createRoutePointFixture(110, 10, new ArrayList(stations.values()));
+        routePoints = getFixtureCreator().createRoutePointFixture(110, 10,
+                new ArrayList(stations.values()));
     }
 
     @Override
@@ -115,8 +116,9 @@ public abstract class RidePointTest extends BasicDataAccessTestSceleton<RidePoin
         searchResult.add(resultCollection);
         resultCollection = provider.findByRoutePoint(getRoutePointById(BigInteger.valueOf(115)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyRoutePoint(getRoutePointsByIds(Arrays.asList(BigInteger.valueOf(116),
-                BigInteger.valueOf(117), BigInteger.valueOf(118))));
+        resultCollection
+                = provider.findByAnyRoutePoint(getRoutePointsByIds(Arrays.asList(BigInteger.valueOf(116),
+                                        BigInteger.valueOf(117), BigInteger.valueOf(118))));
         searchResult.add(resultCollection);
         resultCollection = provider.findAll();
         searchResult.add(resultCollection);
@@ -131,13 +133,14 @@ public abstract class RidePointTest extends BasicDataAccessTestSceleton<RidePoin
         resultCollection = provider.collectIdsByArrivalTimeRange(new DateTime(2015, 1, 1, 0, 0, 0, 0), true,
                 new DateTime(2015, 1, 4, 19, 20, 0, 0), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByDepartureTimeRange(new DateTime(2015, 1, 2, 10, 55, 0, 0), false,
-                new DateTime(2015, 1, 4, 23, 50, 0, 0), true);
+        resultCollection = provider.collectIdsByDepartureTimeRange(new DateTime(2015, 1, 2, 10, 55, 0, 0),
+                false, new DateTime(2015, 1, 4, 23, 50, 0, 0), true);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByRoutePoint(getRoutePointById(BigInteger.valueOf(115)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyRoutePoint(getRoutePointsByIds(Arrays.asList(BigInteger.valueOf(116),
-                BigInteger.valueOf(117), BigInteger.valueOf(118))));
+        resultCollection = provider.collectIdsByAnyRoutePoint(getRoutePointsByIds(Arrays
+                .asList(BigInteger.valueOf(116),
+                        BigInteger.valueOf(117), BigInteger.valueOf(118))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsAll();
         searchResult.add(resultCollection);

@@ -13,7 +13,6 @@ import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
 import com.anli.busstation.dal.interfaces.providers.maintenance.BusRefuellingProvider;
 import com.anli.busstation.dal.interfaces.providers.maintenance.BusRepairmentProvider;
-import com.anli.busstation.dal.interfaces.providers.maintenance.BusServiceProvider;
 import com.anli.busstation.dal.interfaces.providers.maintenance.StationServiceProvider;
 import com.anli.busstation.dal.interfaces.providers.maintenance.TechnicalAssignmentProvider;
 import com.anli.busstation.dal.interfaces.providers.staff.MechanicProvider;
@@ -38,11 +37,14 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
         Map<BigInteger, GasLabel> gasLabels = getFixtureCreator().createGasLabelFixture(10, 5);
         Map<BigInteger, Model> models = getFixtureCreator().createModelFixture(20, 5,
                 new ArrayList(gasLabels.values()));
-        Map<BigInteger, TechnicalState> technicalStates = getFixtureCreator().createTechnicalStateFixture(30, 5);
+        Map<BigInteger, TechnicalState> technicalStates
+                = getFixtureCreator().createTechnicalStateFixture(30, 5);
         buses = getFixtureCreator().createBusFixture(60, 10, new ArrayList(models.values()),
                 new ArrayList(technicalStates.values()));
-        Map<BigInteger, MechanicSkill> mechanicSkills = getFixtureCreator().createMechanicSkillFixture(50, 5);
-        mechanics = getFixtureCreator().createMechanicFixture(50, 10, new ArrayList(mechanicSkills.values()));
+        Map<BigInteger, MechanicSkill> mechanicSkills
+                = getFixtureCreator().createMechanicSkillFixture(50, 5);
+        mechanics = getFixtureCreator().createMechanicFixture(50, 10,
+                new ArrayList(mechanicSkills.values()));
     }
 
     protected BigInteger createBusRefuellingByProvider(BusRefuelling sourceRefuelling) throws Exception {
@@ -103,7 +105,8 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
     }
 
     @Override
-    protected void updateEntityByProvider(BigInteger id, TechnicalAssignment sourceAssignment) throws Exception {
+    protected void updateEntityByProvider(BigInteger id,
+            TechnicalAssignment sourceAssignment) throws Exception {
         TechnicalAssignmentProvider provider = getFactory().getProvider(TechnicalAssignmentProvider.class);
         TechnicalAssignment assignment = provider.findById(id);
         assignment.setBeginTime(sourceAssignment.getBeginTime());
@@ -117,10 +120,12 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
             ((BusRefuelling) assignment).setVolume(((BusRefuelling) sourceAssignment).getVolume());
         }
         if (sourceAssignment instanceof BusRepairment) {
-            ((BusRepairment) assignment).setExpendablesPrice(((BusRepairment) sourceAssignment).getExpendablesPrice());
+            ((BusRepairment) assignment).setExpendablesPrice(((BusRepairment) sourceAssignment)
+                    .getExpendablesPrice());
         }
         if (sourceAssignment instanceof StationService) {
-            ((StationService) assignment).setDescription(((StationService) sourceAssignment).getDescription());
+            ((StationService) assignment).setDescription(((StationService) sourceAssignment)
+                    .getDescription());
         }
         provider.save(assignment);
     }
@@ -136,15 +141,20 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
     protected List<TechnicalAssignment> getCreationTestSets() throws Exception {
         List<TechnicalAssignment> testSets = new ArrayList<>(6);
         testSets.add(getNewRefuelling(BigInteger.ZERO, null, null, null, null, null, null));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2015, 3, 11, 23, 59, 0, 0),
-                new DateTime(2015, 3, 12, 11, 33, 0, 0), BigDecimal.valueOf(11111.11), BigInteger.valueOf(67), 1000));
-        testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, BigDecimal.ZERO, null, BigDecimal.ZERO));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(1992, 4, 25, 15, 21, 0, 0),
-                new DateTime(1993, 1, 1, 18, 33, 0, 0), BigDecimal.valueOf(5550.99), BigInteger.valueOf(64), BigDecimal.valueOf(4401.32)));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(1991, 1, 1, 15, 20, 0, 0),
-                new DateTime(1991, 1, 1, 16, 30, 0, 0), BigDecimal.valueOf(5550.99), "Помывка"));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50), new DateTime(1998, 1, 1, 14, 0, 0, 0),
-                new DateTime(2001, 6, 5, 12, 15, 0, 0), BigDecimal.valueOf(70730.29), "Реставрация"));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2015, 3, 11, 23, 59, 0, 0), new DateTime(2015, 3, 12, 11, 33, 0, 0),
+                BigDecimal.valueOf(11111.11), BigInteger.valueOf(67), 1000));
+        testSets.add(getNewRepairment(BigInteger.ZERO, null, null, null, BigDecimal.ZERO,
+                null, BigDecimal.ZERO));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(1992, 4, 25, 15, 21, 0, 0), new DateTime(1993, 1, 1, 18, 33, 0, 0),
+                BigDecimal.valueOf(5550.99), BigInteger.valueOf(64), BigDecimal.valueOf(4401.32)));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(1991, 1, 1, 15, 20, 0, 0), new DateTime(1991, 1, 1, 16, 30, 0, 0),
+                BigDecimal.valueOf(5550.99), "Помывка"));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(50),
+                new DateTime(1998, 1, 1, 14, 0, 0, 0), new DateTime(2001, 6, 5, 12, 15, 0, 0),
+                BigDecimal.valueOf(70730.29), "Реставрация"));
         return testSets;
     }
 
@@ -153,14 +163,18 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
         List<TechnicalAssignment> testSets = new ArrayList<>(6);
         testSets.add(getNewRefuelling(BigInteger.ZERO, null, new DateTime(2015, 12, 19, 13, 37, 0, 0),
                 new DateTime(2015, 10, 1, 16, 34, 0, 0), null, BigInteger.valueOf(64), 222));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2000, 7, 15, 7, 45, 0, 0),
-                new DateTime(2000, 8, 18, 11, 11, 0, 0), BigDecimal.valueOf(200000), null, null));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2000, 7, 15, 7, 45, 0, 0), new DateTime(2000, 8, 18, 11, 11, 0, 0),
+                BigDecimal.valueOf(200000), null, null));
         testSets.add(getNewRepairment(BigInteger.ZERO, null, new DateTime(2005, 2, 28, 10, 42, 0, 0),
-                new DateTime(2005, 2, 28, 13, 0, 0, 0), null, BigInteger.valueOf(67), BigDecimal.valueOf(1000.10)));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(53), new DateTime(2000, 7, 15, 7, 45, 0, 0),
-                new DateTime(2000, 8, 18, 11, 11, 0, 0), BigDecimal.valueOf(200000), null, null));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51), new DateTime(2007, 11, 30, 8, 5, 0, 0),
-                new DateTime(2007, 11, 30, 10, 25, 0, 0), BigDecimal.valueOf(10000), "Уборка"));
+                new DateTime(2005, 2, 28, 13, 0, 0, 0), null, BigInteger.valueOf(67),
+                BigDecimal.valueOf(1000.10)));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(53),
+                new DateTime(2000, 7, 15, 7, 45, 0, 0), new DateTime(2000, 8, 18, 11, 11, 0, 0),
+                BigDecimal.valueOf(200000), null, null));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(51),
+                new DateTime(2007, 11, 30, 8, 5, 0, 0), new DateTime(2007, 11, 30, 10, 25, 0, 0),
+                BigDecimal.valueOf(10000), "Уборка"));
         testSets.add(getNewService(BigInteger.ZERO, null, new DateTime(2009, 12, 12, 9, 30, 0, 0),
                 new DateTime(2009, 12, 12, 17, 0, 0, 0), null, "Осмотр"));
         return testSets;
@@ -169,22 +183,29 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
     @Override
     protected List<TechnicalAssignment> getSearchTestSets() throws Exception {
         List<TechnicalAssignment> testSets = new ArrayList<>(9);
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(54), new DateTime(2015, 7, 15, 0, 45, 0, 0),
-                new DateTime(2012, 1, 1, 1, 1, 0, 0), BigDecimal.valueOf(1234.56), BigInteger.valueOf(60), 100));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(55), new DateTime(2015, 7, 15, 0, 46, 0, 0),
-                new DateTime(2013, 3, 1, 8, 20, 0, 0), BigDecimal.valueOf(3356.79), BigInteger.valueOf(61), BigDecimal.valueOf(600.25)));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(54),
+                new DateTime(2015, 7, 15, 0, 45, 0, 0), new DateTime(2012, 1, 1, 1, 1, 0, 0),
+                BigDecimal.valueOf(1234.56), BigInteger.valueOf(60), 100));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(55),
+                new DateTime(2015, 7, 15, 0, 46, 0, 0), new DateTime(2013, 3, 1, 8, 20, 0, 0),
+                BigDecimal.valueOf(3356.79), BigInteger.valueOf(61), BigDecimal.valueOf(600.25)));
         testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(55), null,
                 new DateTime(2013, 3, 1, 8, 21, 0, 0), BigDecimal.valueOf(10000), "Четыре пять шесть"));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(56), new DateTime(2015, 7, 23, 11, 11, 0, 0),
-                new DateTime(2013, 3, 1, 9, 30, 0, 0), BigDecimal.valueOf(10500.33), BigInteger.valueOf(61), 756));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(57), new DateTime(2015, 9, 30, 14, 05, 0, 0),
-                new DateTime(2013, 3, 1, 12, 25, 0, 0), BigDecimal.valueOf(11111.11), BigInteger.valueOf(65), BigDecimal.valueOf(700.75)));
-        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(58), new DateTime(2015, 10, 11, 12, 10, 0, 0),
-                new DateTime(2013, 3, 2, 8, 20, 0, 0), BigDecimal.valueOf(15000.39), "Четыре пять шесть"));
-        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(58), new DateTime(2015, 10, 11, 12, 11, 0, 0),
-                new DateTime(2013, 3, 2, 8, 20, 0, 0), BigDecimal.valueOf(15000.40), BigInteger.valueOf(68), 1500));
-        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(59), new DateTime(2015, 10, 11, 12, 12, 0, 0),
-                new DateTime(2013, 3, 2, 10, 15, 0, 0), BigDecimal.valueOf(15000.41), BigInteger.valueOf(67), BigDecimal.valueOf(3333.33)));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(56),
+                new DateTime(2015, 7, 23, 11, 11, 0, 0), new DateTime(2013, 3, 1, 9, 30, 0, 0),
+                BigDecimal.valueOf(10500.33), BigInteger.valueOf(61), 756));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(57),
+                new DateTime(2015, 9, 30, 14, 05, 0, 0), new DateTime(2013, 3, 1, 12, 25, 0, 0),
+                BigDecimal.valueOf(11111.11), BigInteger.valueOf(65), BigDecimal.valueOf(700.75)));
+        testSets.add(getNewService(BigInteger.ZERO, BigInteger.valueOf(58),
+                new DateTime(2015, 10, 11, 12, 10, 0, 0), new DateTime(2013, 3, 2, 8, 20, 0, 0),
+                BigDecimal.valueOf(15000.39), "Четыре пять шесть"));
+        testSets.add(getNewRefuelling(BigInteger.ZERO, BigInteger.valueOf(58),
+                new DateTime(2015, 10, 11, 12, 11, 0, 0), new DateTime(2013, 3, 2, 8, 20, 0, 0),
+                BigDecimal.valueOf(15000.40), BigInteger.valueOf(68), 1500));
+        testSets.add(getNewRepairment(BigInteger.ZERO, BigInteger.valueOf(59),
+                new DateTime(2015, 10, 11, 12, 12, 0, 0), new DateTime(2013, 3, 2, 10, 15, 0, 0),
+                BigDecimal.valueOf(15000.41), BigInteger.valueOf(67), BigDecimal.valueOf(3333.33)));
         testSets.add(getNewService(BigInteger.ZERO, null, new DateTime(2015, 10, 11, 12, 15, 0, 0),
                 new DateTime(2013, 3, 2, 10, 20, 0, 0), null, "Семь восемь девять десять"));
         return testSets;
@@ -223,8 +244,10 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
         List<BigInteger> resultCollection;
         resultCollection = provider.collectIdsByMechanic(getMechanicById(BigInteger.valueOf(55)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyMechanic(getMechanicsByIds(Arrays.asList(BigInteger.valueOf(54),
-                BigInteger.valueOf(56), BigInteger.valueOf(57), BigInteger.valueOf(58))));
+        resultCollection
+                = provider.collectIdsByAnyMechanic(getMechanicsByIds(Arrays.asList(BigInteger.valueOf(54),
+                                        BigInteger.valueOf(56), BigInteger.valueOf(57),
+                                        BigInteger.valueOf(58))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByBeginTimeRange(new DateTime(2015, 7, 15, 0, 45, 0, 0), true,
                 new DateTime(2015, 10, 11, 12, 10, 0, 0), false);
@@ -262,16 +285,18 @@ public abstract class TechnicalAssignmentTest extends BasicDataAccessTestSceleto
         return getNewRefuelling(id, mechanicId, beginTime, endTime, cost, busId, volume, false);
     }
 
-    protected abstract BusRefuelling getNewRefuelling(BigInteger id, BigInteger mechanicId, DateTime beginTime,
-            DateTime endTime, BigDecimal cost, BigInteger busId, Integer volume, boolean load);
+    protected abstract BusRefuelling getNewRefuelling(BigInteger id, BigInteger mechanicId,
+            DateTime beginTime, DateTime endTime, BigDecimal cost, BigInteger busId,
+            Integer volume, boolean load);
 
     protected BusRepairment getNewRepairment(BigInteger id, BigInteger mechanicId, DateTime beginTime,
             DateTime endTime, BigDecimal cost, BigInteger busId, BigDecimal price) {
         return getNewRepairment(id, mechanicId, beginTime, endTime, cost, busId, price, false);
     }
 
-    protected abstract BusRepairment getNewRepairment(BigInteger id, BigInteger mechanicId, DateTime beginTime,
-            DateTime endTime, BigDecimal cost, BigInteger busId, BigDecimal price, boolean load);
+    protected abstract BusRepairment getNewRepairment(BigInteger id, BigInteger mechanicId,
+            DateTime beginTime, DateTime endTime, BigDecimal cost, BigInteger busId,
+            BigDecimal price, boolean load);
 
     protected StationService getNewService(BigInteger id, BigInteger mechanicId, DateTime beginTime,
             DateTime endTime, BigDecimal cost, String description) {

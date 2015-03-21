@@ -35,7 +35,8 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
         }
         Map<BigInteger, RoutePoint> routePoints = getFixtureCreator().createRoutePointFixture(110, 10,
                 new ArrayList(stations.values()));
-        ridePoints = getFixtureCreator().createRidePointFixture(130, 10, new ArrayList(routePoints.values()));
+        ridePoints = getFixtureCreator().createRidePointFixture(130, 10,
+                new ArrayList(routePoints.values()));
     }
 
     @Override
@@ -86,10 +87,12 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
                 null, null, null, false));
         testSets.add(getNewTicket(BigInteger.ZERO, null, "", null, BigDecimal.valueOf(0),
                 new DateTime(0), null, 0, false));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(130), "Pupkin", BigInteger.valueOf(131),
-                BigDecimal.valueOf(120.33), new DateTime(2015, 3, 11, 15, 24, 43, 0), BigInteger.valueOf(92), 15, true));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(132), "Сидоров", BigInteger.valueOf(134),
-                BigDecimal.valueOf(251.99), new DateTime(2015, 2, 18, 17, 0, 33, 0), BigInteger.valueOf(97), 4, true));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(130), "Pupkin",
+                BigInteger.valueOf(131), BigDecimal.valueOf(120.33),
+                new DateTime(2015, 3, 11, 15, 24, 43, 0), BigInteger.valueOf(92), 15, true));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(132), "Сидоров",
+                BigInteger.valueOf(134), BigDecimal.valueOf(251.99),
+                new DateTime(2015, 2, 18, 17, 0, 33, 0), BigInteger.valueOf(97), 4, true));
         return testSets;
     }
 
@@ -97,11 +100,13 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
     protected List<Ticket> getUpdateTestSets() throws Exception {
         List<Ticket> testSets = new ArrayList<>(4);
         testSets.add(getNewTicket(BigInteger.ZERO, null, "", BigInteger.valueOf(131),
-                BigDecimal.valueOf(0), new DateTime(2015, 7, 28, 9, 10, 1, 0), BigInteger.valueOf(95), 44, false));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(130), "Stephens", BigInteger.valueOf(131),
+                BigDecimal.valueOf(0), new DateTime(2015, 7, 28, 9, 10, 1, 0), BigInteger.valueOf(95),
+                44, false));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(130), "Stephens",
+                BigInteger.valueOf(131),
                 null, new DateTime(2015, 3, 11, 15, 24, 43, 0), BigInteger.valueOf(92), 15, true));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(137), "Johnson", BigInteger.valueOf(131),
-                BigDecimal.valueOf(302.11), null, null, 24, false));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(137), "Johnson",
+                BigInteger.valueOf(131), BigDecimal.valueOf(302.11), null, null, 24, false));
         testSets.add(getNewTicket(BigInteger.ZERO, null, null, BigInteger.valueOf(134),
                 null, new DateTime(0), BigInteger.valueOf(90), 0, true));
         return testSets;
@@ -112,14 +117,17 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
         List<Ticket> testSets = new ArrayList<>();
         testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(131), "", BigInteger.valueOf(132),
                 BigDecimal.valueOf(120.55), new DateTime(2015, 7, 3, 23, 59, 59, 0), null, 10, true));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(131), "Good name", BigInteger.valueOf(134),
-                BigDecimal.valueOf(201.11), new DateTime(2015, 7, 4, 0, 45, 7, 0), BigInteger.valueOf(93), 15, true));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(131), "Good name",
+                BigInteger.valueOf(134), BigDecimal.valueOf(201.11), new DateTime(2015, 7, 4, 0, 45, 7, 0),
+                BigInteger.valueOf(93), 15, true));
         testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(132), null, BigInteger.valueOf(135),
                 BigDecimal.valueOf(284.47), null, BigInteger.valueOf(95), null, true));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(132), "Bad name", BigInteger.valueOf(139),
-                BigDecimal.valueOf(333.99), new DateTime(2015, 7, 4, 2, 32, 12, 0), BigInteger.valueOf(96), 20, false));
-        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(134), "Something", BigInteger.valueOf(130),
-                BigDecimal.valueOf(334.0), new DateTime(2015, 7, 8, 17, 33, 59, 0), BigInteger.valueOf(97), 21, false));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(132), "Bad name",
+                BigInteger.valueOf(139), BigDecimal.valueOf(333.99), new DateTime(2015, 7, 4, 2, 32, 12, 0),
+                BigInteger.valueOf(96), 20, false));
+        testSets.add(getNewTicket(BigInteger.ZERO, BigInteger.valueOf(134), "Something",
+                BigInteger.valueOf(130), BigDecimal.valueOf(334.0), new DateTime(2015, 7, 8, 17, 33, 59, 0),
+                BigInteger.valueOf(97), 21, false));
         return testSets;
     }
 
@@ -130,19 +138,22 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
         List<Ticket> resultCollection;
         resultCollection = provider.findByArrivalPoint(getRidePointById(BigInteger.valueOf(131)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyArrivalPoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(133), BigInteger.valueOf(134))));
+        resultCollection
+                = provider.findByAnyArrivalPoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
+                                        BigInteger.valueOf(133), BigInteger.valueOf(134))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByDeparturePoint(getRidePointById(BigInteger.valueOf(132)));
         searchResult.add(resultCollection);
-        resultCollection = provider.findByAnyDeparturePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(133),
-                BigInteger.valueOf(134), BigInteger.valueOf(135))));
+        resultCollection
+                = provider.findByAnyDeparturePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(133),
+                                        BigInteger.valueOf(134), BigInteger.valueOf(135))));
         searchResult.add(resultCollection);
         resultCollection = provider.findByCustomerName("Good name");
         searchResult.add(resultCollection);
         resultCollection = provider.findByCustomerNameRegexp("name$");
         searchResult.add(resultCollection);
-        resultCollection = provider.findByPriceRange(BigDecimal.valueOf(120.55), true, BigDecimal.valueOf(333.99), false);
+        resultCollection = provider.findByPriceRange(BigDecimal.valueOf(120.55), true,
+                BigDecimal.valueOf(333.99), false);
         searchResult.add(resultCollection);
         resultCollection = provider.findBySaleDateRange(new DateTime(2015, 7, 4, 2, 32, 12, 0), false,
                 new DateTime(2015, 7, 8, 17, 34, 0, 0), true);
@@ -174,13 +185,15 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
         List<BigInteger> resultCollection;
         resultCollection = provider.collectIdsByArrivalPoint(getRidePointById(BigInteger.valueOf(131)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyArrivalPoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
-                BigInteger.valueOf(133), BigInteger.valueOf(134))));
+        resultCollection
+                = provider.collectIdsByAnyArrivalPoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(132),
+                                        BigInteger.valueOf(133), BigInteger.valueOf(134))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByDeparturePoint(getRidePointById(BigInteger.valueOf(132)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnyDeparturePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(133),
-                BigInteger.valueOf(134), BigInteger.valueOf(135))));
+        resultCollection = provider
+                .collectIdsByAnyDeparturePoint(getRidePointsByIds(Arrays.asList(BigInteger.valueOf(133),
+                                        BigInteger.valueOf(134), BigInteger.valueOf(135))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsByCustomerName("Good name");
         searchResult.add(resultCollection);
@@ -189,13 +202,14 @@ public abstract class TicketTest extends BasicDataAccessTestSceleton<Ticket> {
         resultCollection = provider.collectIdsByPriceRange(BigDecimal.valueOf(120.55), true,
                 BigDecimal.valueOf(333.99), false);
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsBySaleDateRange(new DateTime(2015, 7, 4, 2, 32, 12, 0), false,
-                new DateTime(2015, 7, 8, 17, 34, 0, 0), true);
+        resultCollection = provider.collectIdsBySaleDateRange(new DateTime(2015, 7, 4, 2, 32, 12, 0),
+                false, new DateTime(2015, 7, 8, 17, 34, 0, 0), true);
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsBySalesman(getSalesmanById(BigInteger.valueOf(96)));
         searchResult.add(resultCollection);
-        resultCollection = provider.collectIdsByAnySalesman(getSalesmenByIds(Arrays.asList(BigInteger.valueOf(95),
-                BigInteger.valueOf(96), BigInteger.valueOf(99))));
+        resultCollection
+                = provider.collectIdsByAnySalesman(getSalesmenByIds(Arrays.asList(BigInteger.valueOf(95),
+                                        BigInteger.valueOf(96), BigInteger.valueOf(99))));
         searchResult.add(resultCollection);
         resultCollection = provider.collectIdsBySeat(null);
         searchResult.add(resultCollection);
