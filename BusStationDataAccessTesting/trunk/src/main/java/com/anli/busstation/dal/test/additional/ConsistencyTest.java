@@ -6,6 +6,8 @@ import com.anli.busstation.dal.interfaces.entities.geography.Region;
 import com.anli.busstation.dal.interfaces.entities.geography.Road;
 import com.anli.busstation.dal.interfaces.entities.geography.Station;
 import com.anli.busstation.dal.interfaces.entities.maintenance.StationService;
+import com.anli.busstation.dal.interfaces.entities.traffic.Ride;
+import com.anli.busstation.dal.interfaces.entities.traffic.Route;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Bus;
 import com.anli.busstation.dal.interfaces.entities.vehicles.Model;
 import com.anli.busstation.dal.interfaces.entities.vehicles.TechnicalState;
@@ -13,6 +15,8 @@ import com.anli.busstation.dal.interfaces.providers.geography.RegionProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.RoadProvider;
 import com.anli.busstation.dal.interfaces.providers.geography.StationProvider;
 import com.anli.busstation.dal.interfaces.providers.maintenance.StationServiceProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RideProvider;
+import com.anli.busstation.dal.interfaces.providers.traffic.RouteProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.BusProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.ModelProvider;
 import com.anli.busstation.dal.interfaces.providers.vehicles.TechnicalStateProvider;
@@ -32,6 +36,7 @@ public abstract class ConsistencyTest extends AbstractDataAccessTest {
         testInconsistentReferenceSave();
         testRemovedEntitySave();
         testRemovedEntityRemoval();
+        testRemovedEntityPull();
     }
 
     protected void testInconsistentReferenceSave() throws Exception {
@@ -118,6 +123,30 @@ public abstract class ConsistencyTest extends AbstractDataAccessTest {
             assertEquals(service, inconsistent.iterator().next());
             StationService removedService = serviceProvider.findById(service.getId());
             assertNull(removedService);
+        }
+    }
+
+    protected void testRemovedEntityPull() throws Exception {
+        RideProvider rideProvider = getFactory().getProvider(RideProvider.class);
+        Ride rideA = rideProvider.create();
+        Ride rideB = rideProvider.create();
+        RouteProvider routeProvider = getFactory().getProvider(RouteProvider.class);
+        Route route = routeProvider.create();
+        route = routeProvider.pullRides(route);
+        route.getRides().add(rideA);
+        route.getRides().add(rideB);
+        route = routeProvider.save(route);
+        routeProvider.remove(route);
+
+        try {
+            routeProvider.pullRides(route);
+            throw new AssertionError(ConsistencyException.class.getName() + " expected");
+        } catch (ConsistencyException ex) {
+            Collection<BSEntity> inconsistent = ex.getEntities();
+            assertEquals(1, inconsistent.size());
+            assertEquals(route, inconsistent.iterator().next());
+            Route removedRoute = routeProvider.findById(route.getId());
+            assertNull(removedRoute);
         }
     }
 }
