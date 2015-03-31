@@ -55,11 +55,12 @@ public abstract class FixtureCreator {
             GasLabel gasLabel = glProvider.findById(BigInteger.valueOf(minId + i));
             if (gasLabel == null) {
                 gasLabel = glProvider.create();
+                setIdManually(gasLabel, BigInteger.valueOf(minId + i));
+                gasLabel = glProvider.findById(BigInteger.valueOf(minId + i));
             }
             gasLabel.setName("GL" + i);
             gasLabel.setPrice(BigDecimal.valueOf(30 + i));
             gasLabel = glProvider.save(gasLabel);
-            setIdManually(gasLabel, BigInteger.valueOf(minId + i));
             gasLabels.put(gasLabel.getId(), gasLabel);
         }
         return gasLabels;
@@ -72,11 +73,12 @@ public abstract class FixtureCreator {
             TechnicalState state = sProvider.findById(BigInteger.valueOf(minId + i));
             if (state == null) {
                 state = sProvider.create();
+                setIdManually(state, BigInteger.valueOf(minId + i));
+                state = sProvider.findById(BigInteger.valueOf(minId + i));
             }
             state.setDescription("Description " + i);
             state.setDifficultyLevel(i);
             state = sProvider.save(state);
-            setIdManually(state, BigInteger.valueOf(minId + i));
             technicalStates.put(state.getId(), state);
         }
         return technicalStates;
@@ -89,6 +91,8 @@ public abstract class FixtureCreator {
             Model model = mProvider.findById(BigInteger.valueOf(minId + i));
             if (model == null) {
                 model = mProvider.create();
+                setIdManually(model, BigInteger.valueOf(minId + i));
+                model = mProvider.findById(BigInteger.valueOf(minId + i));
             }
             model.setGasLabel(gasLabels.isEmpty() ? null : gasLabels.get(i % gasLabels.size()));
             model.setGasRate(BigDecimal.valueOf(50 + i * 10));
@@ -96,7 +100,6 @@ public abstract class FixtureCreator {
             model.setSeatsNumber(i * 10);
             model.setTankVolume(i * 15);
             model = mProvider.save(model);
-            setIdManually(model, BigInteger.valueOf(minId + i));
             models.put(model.getId(), model);
         }
         return models;
@@ -109,12 +112,13 @@ public abstract class FixtureCreator {
             DriverSkill skill = dsProvider.findById(BigInteger.valueOf(minId + i));
             if (skill == null) {
                 skill = dsProvider.create();
+                setIdManually(skill, BigInteger.valueOf(minId + i));
+                skill = dsProvider.findById(BigInteger.valueOf(minId + i));
             }
             skill.setName("Skill " + i);
             skill.setMaxPassengers(20 + i * 3);
             skill.setMaxRideLength(1000 * i);
             skill = dsProvider.save(skill);
-            setIdManually(skill, BigInteger.valueOf(minId + i));
             driverSkills.put(skill.getId(), skill);
         }
         return driverSkills;
@@ -127,11 +131,12 @@ public abstract class FixtureCreator {
             MechanicSkill skill = msProvider.findById(BigInteger.valueOf(minId + i));
             if (skill == null) {
                 skill = msProvider.create();
+                setIdManually(skill, BigInteger.valueOf(minId + i));
+                skill = msProvider.findById(BigInteger.valueOf(minId + i));
             }
             skill.setName("Skill " + i);
             skill.setMaxDiffLevel(i * 2);
             skill = msProvider.save(skill);
-            setIdManually(skill, BigInteger.valueOf(minId + i));
             mechanicSkills.put(skill.getId(), skill);
         }
         return mechanicSkills;
@@ -145,12 +150,13 @@ public abstract class FixtureCreator {
             Bus bus = busProvider.findById(BigInteger.valueOf(minId + i));
             if (bus == null) {
                 bus = busProvider.create();
+                setIdManually(bus, BigInteger.valueOf(minId + i));
+                bus = busProvider.findById(BigInteger.valueOf(minId + i));
             }
             bus.setModel(models.isEmpty() ? null : models.get(i % models.size()));
             bus.setPlate("P" + i * 100 + "LT");
             bus.setState(states.isEmpty() ? null : states.get(i % states.size()));
             bus = busProvider.save(bus);
-            setIdManually(bus, BigInteger.valueOf(minId + i));
             buses.put(bus.getId(), bus);
         }
         return buses;
@@ -164,13 +170,14 @@ public abstract class FixtureCreator {
             Driver driver = driverProvider.findById(BigInteger.valueOf(minId + i));
             if (driver == null) {
                 driver = driverProvider.create();
+                setIdManually(driver, BigInteger.valueOf(minId + i));
+                driver = driverProvider.findById(BigInteger.valueOf(minId + i));
             }
             driver.setHiringDate(new DateTime(1990 + i, i % 11 + 1, i % 29 + 1, 0, 0, 0, 0));
             driver.setName("Driver " + i);
             driver.setSalary(BigDecimal.valueOf(i * 1000));
             driver.setSkill(skills.isEmpty() ? null : skills.get(i % skills.size()));
             driver = driverProvider.save(driver);
-            setIdManually(driver, BigInteger.valueOf(minId + i));
             drivers.put(driver.getId(), driver);
         }
         return drivers;
@@ -184,13 +191,14 @@ public abstract class FixtureCreator {
             Mechanic mechanic = mechanicProvider.findById(BigInteger.valueOf(minId + i));
             if (mechanic == null) {
                 mechanic = mechanicProvider.create();
+                setIdManually(mechanic, BigInteger.valueOf(minId + i));
+                mechanic = mechanicProvider.findById(BigInteger.valueOf(minId + i));
             }
             mechanic.setHiringDate(new DateTime(1990 + i, i % 11 + 1, i % 29 + 1, 0, 0, 0, 0));
             mechanic.setName("Mechanic " + i);
             mechanic.setSalary(BigDecimal.valueOf(i * 1000));
             mechanic.setSkill(skills.isEmpty() ? null : skills.get(i % skills.size()));
             mechanic = mechanicProvider.save(mechanic);
-            setIdManually(mechanic, BigInteger.valueOf(minId + i));
             mechanics.put(mechanic.getId(), mechanic);
         }
         return mechanics;
@@ -203,13 +211,14 @@ public abstract class FixtureCreator {
             Salesman salesman = salesmanProvider.findById(BigInteger.valueOf(minId + i));
             if (salesman == null) {
                 salesman = salesmanProvider.create();
+                setIdManually(salesman, BigInteger.valueOf(minId + i));
+                salesman = salesmanProvider.findById(BigInteger.valueOf(minId + i));
             }
             salesman.setHiringDate(new DateTime(1990 + i, i % 11 + 1, i % 29 + 1, 0, 0, 0, 0));
             salesman.setName("Mechanic " + i);
             salesman.setSalary(BigDecimal.valueOf(i * 1000));
             salesman.setTotalSales(i * 150);
             salesman = salesmanProvider.save(salesman);
-            setIdManually(salesman, BigInteger.valueOf(minId + i));
             salesmen.put(salesman.getId(), salesman);
         }
         return salesmen;
@@ -223,6 +232,8 @@ public abstract class FixtureCreator {
             Station station = stationProvider.findById(BigInteger.valueOf(minId + i));
             if (station == null) {
                 station = stationProvider.create();
+                setIdManually(station, BigInteger.valueOf(minId + i));
+                station = stationProvider.findById(BigInteger.valueOf(minId + i));
             }
             station = stationProvider.pullBuses(station);
             station = stationProvider.pullEmployees(station);
@@ -238,7 +249,6 @@ public abstract class FixtureCreator {
                 station.getEmployees().addAll(employees.subList(i % employees.size(), i + 1));
             }
             station = stationProvider.save(station);
-            setIdManually(station, BigInteger.valueOf(minId + i));
             stations.put(station.getId(), station);
         }
         return stations;
@@ -252,10 +262,11 @@ public abstract class FixtureCreator {
             RoutePoint routePoint = routePointProvider.findById(BigInteger.valueOf(minId + i));
             if (routePoint == null) {
                 routePoint = routePointProvider.create();
+                setIdManually(routePoint, BigInteger.valueOf(minId + i));
+                routePoint = routePointProvider.findById(BigInteger.valueOf(minId + i));
             }
             routePoint.setStation(stations.isEmpty() ? null : stations.get(i % stations.size()));
             routePoint = routePointProvider.save(routePoint);
-            setIdManually(routePoint, BigInteger.valueOf(minId + i));
             routePoints.put(routePoint.getId(), routePoint);
         }
         return routePoints;
@@ -268,13 +279,14 @@ public abstract class FixtureCreator {
             Road road = roadProvider.findById(BigInteger.valueOf(minId + i));
             if (road == null) {
                 road = roadProvider.create();
+                setIdManually(road, BigInteger.valueOf(minId + i));
+                road = roadProvider.findById(BigInteger.valueOf(minId + i));
             }
             road.setAStation(stations.isEmpty() ? null : stations.get(i % stations.size()));
             road.setLength(i * 1000);
             road.setRidePrice(BigDecimal.valueOf(1000 / (i + 1)));
             road.setZStation(stations.isEmpty() ? null : stations.get((i + 1) % stations.size()));
             road = roadProvider.save(road);
-            setIdManually(road, BigInteger.valueOf(minId + i));
             roads.put(road.getId(), road);
         }
         return roads;
@@ -288,13 +300,14 @@ public abstract class FixtureCreator {
             RidePoint ridePoint = ridePointProvider.findById(BigInteger.valueOf(minId + i));
             if (ridePoint == null) {
                 ridePoint = ridePointProvider.create();
+                setIdManually(ridePoint, BigInteger.valueOf(minId + i));
+                ridePoint = ridePointProvider.findById(BigInteger.valueOf(minId + i));
             }
             ridePoint.setArrivalTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, i % 24, i % 60, 0, 0));
             ridePoint.setDepartureTime(new DateTime(2015, i % 11 + 1, i % 29 + 1, (i + 2) % 24,
                     (i + 20) % 60, 0, 0));
             ridePoint.setRoutePoint(routePoints.isEmpty() ? null : routePoints.get(i % routePoints.size()));
             ridePoint = ridePointProvider.save(ridePoint);
-            setIdManually(ridePoint, BigInteger.valueOf(minId + i));
             ridePoints.put(ridePoint.getId(), ridePoint);
         }
         return ridePoints;
@@ -308,11 +321,12 @@ public abstract class FixtureCreator {
             RideRoad rideRoad = rideRoadProvider.findById(BigInteger.valueOf(minId + i));
             if (rideRoad == null) {
                 rideRoad = rideRoadProvider.create();
+                setIdManually(rideRoad, BigInteger.valueOf(minId + i));
+                rideRoad = rideRoadProvider.findById(BigInteger.valueOf(minId + i));
             }
             rideRoad.setDriver(drivers.isEmpty() ? null : drivers.get(i % drivers.size()));
             rideRoad.setRoad(roads.isEmpty() ? null : roads.get(i % roads.size()));
             rideRoad = rideRoadProvider.save(rideRoad);
-            setIdManually(rideRoad, BigInteger.valueOf(minId + i));
             rideRoads.put(rideRoad.getId(), rideRoad);
         }
         return rideRoads;
@@ -326,6 +340,8 @@ public abstract class FixtureCreator {
             Ticket ticket = ticketProvider.findById(BigInteger.valueOf(minId + i));
             if (ticket == null) {
                 ticket = ticketProvider.create();
+                setIdManually(ticket, BigInteger.valueOf(minId + i));
+                ticket = ticketProvider.findById(BigInteger.valueOf(minId + i));
             }
             ticket.setArrivalPoint(ridePoints.isEmpty() ? null : ridePoints.get(i % ridePoints.size()));
             ticket.setCustomerName("Customer " + i);
@@ -337,7 +353,6 @@ public abstract class FixtureCreator {
             ticket.setSeat(i + 5);
             ticket.setSold(i % 2 == 0);
             ticket = ticketProvider.save(ticket);
-            setIdManually(ticket, BigInteger.valueOf(minId + i));
             tickets.put(ticket.getId(), ticket);
         }
         return tickets;
@@ -352,6 +367,8 @@ public abstract class FixtureCreator {
             Ride ride = rideProvider.findById(BigInteger.valueOf(minId + i));
             if (ride == null) {
                 ride = rideProvider.create();
+                setIdManually(ride, BigInteger.valueOf(minId + i));
+                ride = rideProvider.findById(BigInteger.valueOf(minId + i));
             }
             ride = rideProvider.pullRidePoints(ride);
             ride = rideProvider.pullRideRoads(ride);
@@ -370,7 +387,6 @@ public abstract class FixtureCreator {
                 ride.getTickets().addAll(tickets.subList(i % tickets.size(), i + 1));
             }
             ride = rideProvider.save(ride);
-            setIdManually(ride, BigInteger.valueOf(minId + i));
             rides.put(ride.getId(), ride);
         }
         return rides;
