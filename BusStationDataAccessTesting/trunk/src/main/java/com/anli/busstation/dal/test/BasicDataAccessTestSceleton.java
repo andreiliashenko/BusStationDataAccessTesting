@@ -21,18 +21,22 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
     @Override
     public void test() throws Exception {
         clearStorageSpace();
+        resetCaches();
         createPrerequisites();
         testCreation();
         testReading();
         testUpdate();
         testDeletion();
         clearStorageSpace();
+        resetCaches();
         createPrerequisites();
         testPulling();
         clearStorageSpace();
+        resetCaches();
         createPrerequisites();
         testCollecting();
         clearStorageSpace();
+        resetCaches();
         createPrerequisites();
         testSearch();
     }
@@ -62,8 +66,6 @@ public abstract class BasicDataAccessTestSceleton<I extends BSEntity> extends Ab
     protected abstract List<int[]> getExpectedSearchSets();
 
     protected abstract List<int[]> getExpectedCollectingSets();
-
-    protected abstract void setEntityId(I entity, BigInteger id);
 
     protected abstract void clearStorageSpace() throws Exception;
 
