@@ -26,13 +26,15 @@ public abstract class AbstractTester extends HttpServlet {
             "ModelTest", "BusTest");
     protected static final List<String> staffTests = Arrays.asList("DriverSkillTest", "MechanicSkillTest",
             "SalesmanTest", "DriverTest", "MechanicTest", "EmployeeTest");
-    protected static final List<String> geographyTests = Arrays.asList("StationTest", "RegionTest", "RoadTest");
+    protected static final List<String> geographyTests = Arrays
+            .asList("StationTest", "RegionTest", "RoadTest");
     protected static final List<String> maintenanceTests = Arrays.asList("BusRepairmentTest",
             "BusRefuellingTest", "BusServiceTest", "StationServiceTest", "TechnicalAssignmentTest");
-    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest", "RideRoadTest",
+    protected static final List<String> trafficTests = Arrays.asList("RoutePointTest", "RidePointTest",
+            "RideRoadTest",
             "TicketTest", "RideTest", "RouteTest");
     protected static final List<String> additionalTests = Arrays.asList("ReferenceMutationTest",
-            "ConsistencyTest", "ThreadingTest");
+            "ConsistencyTest", "TransactionTest", "ThreadingTest");
 
     @Override
     protected void doGet(HttpServletRequest request,
